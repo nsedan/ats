@@ -42,9 +42,7 @@
 
 <body>
 
-    <header>
-        {% include "inc/navbar.html" %}
-    </header>
+    {% include "inc/navbar.html" %}
 
     {% if messages %}
     <div class="message-container"></div>
@@ -56,6 +54,8 @@
     <main class="container-fluid">
         {% block content %}{% endblock %}
     </main>
+
+    {% include "inc/footer.html" %}
 
     {% block postloadjs %}
     {% endblock %}

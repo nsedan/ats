@@ -7,16 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_logout' %}">LOGOUT</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_logout' %}">LOGOUT</a>
+            </li>
             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_login' %}">LOG IN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'account_signup' %}">REGISTER</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_login' %}">LOG IN</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_signup' %}">REGISTER</a>
+            </li>
             {% endif %}
         </ul>
     </div>

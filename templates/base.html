@@ -17,6 +17,7 @@
     {% block corecss %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock %}
 
     {% block extra_css %}
@@ -42,9 +43,7 @@
 
 <body>
 
-    <header>
-        {% include "inc/navbar.html" %}
-    </header>
+    {% include "inc/navbar.html" %}
 
     {% if messages %}
     <div class="message-container"></div>
@@ -56,6 +55,8 @@
     <main class="container-fluid">
         {% block content %}{% endblock %}
     </main>
+
+    {% include "inc/footer.html" %}
 
     {% block postloadjs %}
     {% endblock %}

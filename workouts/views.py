@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
-from .models import Workout
+from .models import Workout, Category
 
 
 def all_workouts(request):
@@ -9,8 +9,14 @@ def all_workouts(request):
 
     workouts = Workout.objects.all()
     query = None
+    categories = None
 
     if request.GET:
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            workouts = workouts.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
@@ -25,6 +31,7 @@ def all_workouts(request):
     context = {
         'workouts': workouts,
         'search_term': query,
+        'current_categories': categories,
     }
 
     return render(request, 'workouts/workouts.html', context)

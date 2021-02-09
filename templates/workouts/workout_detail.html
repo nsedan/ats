@@ -11,9 +11,9 @@
             </form>
         </div>
         <div class="col-9">
-            {% for workout in workouts %}
+            {% if workout %}
                 <div class="card">
-                    <a href="{% url 'workout_detail' workout.id %}">
+                    <a href="">
                         <img class="card-img-top" src="#" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ workout.name }}</h5>
@@ -29,7 +29,7 @@
                         <a href="#" class="card-link">Add to cart</a>
                     </div>
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </section>

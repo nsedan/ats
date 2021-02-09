@@ -8,6 +8,7 @@ def all_workouts(request):
     """ A view to return all workouts """
 
     workouts = Workout.objects.all()
+    all_categories = Category.objects.all()
     query = None
     categories = None
 
@@ -30,6 +31,7 @@ def all_workouts(request):
 
     context = {
         'workouts': workouts,
+        'all_categories': all_categories,
         'search_term': query,
         'current_categories': categories,
     }

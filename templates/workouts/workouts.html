@@ -6,20 +6,8 @@
     <div class="row">
 
         <div class="col-3">
-            <form class="form-inline" method="GET" action="{% url 'workouts' %}">
-                <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">S</button>
-            </form>
-            <div class="dropdown">
-                <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Categories
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'workouts' %}?category=cardio">Cardio</a>
-                    <a class="dropdown-item" href="{% url 'workouts' %}?category=full_body">Full Body</a>
-                    <a class="dropdown-item" href="{% url 'workouts' %}?category=cardio,full_body">All Categories</a>
-                </div>
-            </div>
+            {% include "inc/search.html" %}
+            {% include "inc/filters.html" %}
         </div>
 
         <div class="col-9">

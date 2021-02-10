@@ -18,8 +18,13 @@
                         <h5 class="card-title">{{ workout.name }}</h5>
                         {% if workout.category %}
                             <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
-                                <span>{{ workout.category.friendly_name }}</span>
+                                <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
                             </a>
+                        {% endif %}
+                        {% if workout.tags.all %}
+                            {% for tag in workout.tags.all %}
+                                <span class="badge badge-secondary text-capitalize">{{ tag.name }}</span>
+                            {% endfor %}
                         {% endif %}
                     </div>
                     <ul class="list-group list-group-flush">

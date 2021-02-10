@@ -24,6 +24,16 @@
                         <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ workout.name }}</h5>
+                            {% if workout.category %}
+                                <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
+                                    <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
+                                </a>
+                            {% endif %}
+                            {% if workout.tags.all %}
+                                {% for tag in workout.tags.all %}
+                                    <span class="badge badge-secondary text-capitalize">{{ tag.name }}</span>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </a>
                     <ul class="list-group list-group-flush">

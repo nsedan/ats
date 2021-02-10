@@ -8,20 +8,27 @@
         <div class="col-3">
             {% include "inc/search.html" %}
             {% include "inc/filters.html" %}
+
+            {% for c in current_categories %}
+                <a href="{% url 'workouts' %}?category={{ c.name }}">
+                    <span class="btn btn-secondary">{{ c.friendly_name }}</span>
+                </a>
+            {% endfor %}
+            <p>{{ workouts|length }} Results{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}</p>
         </div>
 
-        <div class="col-9">
+        <div class="col-4">
             {% for workout in workouts %}
                 <div class="card">
                     <a href="{% url 'workout_detail' workout.id %}">
-                        <img class="card-img-top" src="#" alt="Card image cap">
+                        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{ workout.name }}</h5>
-                            <p class="card-text">{{ workout.category.friendly_name }}</p>
                         </div>
                     </a>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{ workout.difficulty }}</li>
+                        <li class="list-group-item">{{ workout.rating }} / 10</li>
                         <li class="list-group-item">{{ workout.price }}</li>
                     </ul>
                     <div class="card-body">

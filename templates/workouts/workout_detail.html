@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container-fluid">
+
+    <div class="row">
+        <div class="col-4">
+            {% if workout %}
+                <div class="card">
+                    <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ workout.name }}</h5>
+                        {% if workout.category %}
+                            <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
+                                <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
+                            </a>
+                        {% endif %}
+                        {% if workout.tags.all %}
+                            {% for tag in workout.tags.all %}
+                                <span class="badge badge-secondary text-capitalize">{{ tag.name }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{ workout.description }}</li>
+                        <li class="list-group-item">{{ workout.difficulty }}</li>
+                        <li class="list-group-item">{{ workout.rating }} / 10</li>
+                        <li class="list-group-item">£ {{ workout.price }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Add to cart</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

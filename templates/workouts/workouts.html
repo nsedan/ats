@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container-fluid">
+
+    <div class="row pt-3">
+        <div class="col-3">
+            {% include "inc/search.html" %}
+        </div>
+        <div class="col-6">
+            <div class="dropdown d-inline">
+                <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownCategoryLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownCategoryLink">
+                    {% for category in all_categories %}
+                    <a class="dropdown-item" href="{% url 'workouts' %}?category={{category.name}}">{{category.friendly_name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% for c in current_categories %}
+                <span class="btn btn-secondary">{{ c.friendly_name }}</span>
+            {% endfor %}
+        </div>
+        <div class="col-3">
+            {% include "inc/filters.html" %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% for workout in workouts %}
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <div class="card">
+                    {% if workout.image %}
+                    <a href="{% url 'workout_detail' workout.id %}">
+                        <img class="card-img-top" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                    </a>
+                    {% else %}
+                    <a href="{% url 'workout_detail' workout.id %}">
+                        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                    </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ workout.name }}</h5>
+                        {% if workout.category %}
+                            <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
+                                <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
+                            </a>
+                        {% endif %}
+                        {% if workout.tags.all %}
+                            {% for tag in workout.tags.all %}
+                                <span class="badge badge-secondary text-capitalize">{{ tag.name }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item py-1">{{ workout.difficulty }}</li>
+                        <li class="list-group-item py-1">{{ workout.rating }} / 10</li>
+                        <li class="list-group-item py-1">£ {{ workout.price }}</li>
+                    </ul>
+                    <div class="card-body py-2">
+                        <a href="#" class="card-link">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:1 %}
+                <div class="col-12 d-sm-none">
+                    <hr>
+                </div>
+            {% endif %}                        
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="col-12 d-none d-sm-block d-md-block d-lg-none">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:3 %}
+                <div class="col-12 d-none d-lg-block d-xl-none">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:4 %}
+                <div class="col-12 d-none d-xl-block">
+                    <hr>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

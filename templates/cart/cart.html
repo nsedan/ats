@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container">
+    <div class="row">
+
+        <div class="col-6">
+            {% if cart_items %}
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="my-3">Your bag is empty.</p>
+                <a href="{% url 'workouts' %}" class="btn btn-outline-success">
+                    <i class="fas fa-chevron-left"></i>
+                    <span class="text-uppercase">Keep Shopping</span>
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

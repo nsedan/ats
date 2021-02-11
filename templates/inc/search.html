@@ -1,4 +1,15 @@
 <form class="form-inline" method="GET" action="{% url 'workouts' %}">
-    <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">S</button>
+    <div class="input-group">
+        <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+            <button class="btn btn-outline-success" type="submit" id="button-addon2">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
 </form>
+{% if search_term %}
+<p class="pl-2 pt-1">{{ workouts|length }} Results{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}</p>
+{% else %}
+<br>
+{% endif %}

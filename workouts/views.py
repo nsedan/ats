@@ -68,9 +68,11 @@ def workout_detail(request, workout_id):
     """ A view to return an specific workout """
 
     workout = get_object_or_404(Workout, pk=workout_id)
+    all_categories = Category.objects.all()
 
     context = {
         'workout': workout,
+        'all_categories': all_categories,
     }
 
     return render(request, 'workouts/workout_detail.html', context)

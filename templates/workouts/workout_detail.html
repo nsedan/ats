@@ -2,14 +2,9 @@
 {% load static %}
 
 {% block content %}
-<section class="container">
+<section class="container-fluid">
+
     <div class="row">
-
-        <div class="col-3">
-            {% include "inc/search.html" %}
-            {% include "inc/filters.html" %}
-        </div>
-
         <div class="col-4">
             {% if workout %}
                 <div class="card">
@@ -31,16 +26,16 @@
                         <li class="list-group-item">{{ workout.description }}</li>
                         <li class="list-group-item">{{ workout.difficulty }}</li>
                         <li class="list-group-item">{{ workout.rating }} / 10</li>
-                        <li class="list-group-item">{{ workout.price }}</li>
+                        <li class="list-group-item">£ {{ workout.price }}</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Buy Now!</a>
                         <a href="#" class="card-link">Add to cart</a>
                     </div>
                 </div>
             {% endif %}
         </div>
     </div>
+
 </section>
 
 {% endblock %}

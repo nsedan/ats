@@ -29,7 +29,15 @@
                         <li class="list-group-item">£ {{ workout.price }}</li>
                     </ul>
                     <div class="card-body">
-                        <a href="#" class="card-link">Add to cart</a>
+                       <form class="form" action="{% url 'add_to_cart' workout.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-outline-secondary text-uppercase" value="Add to Cart">
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             {% endif %}

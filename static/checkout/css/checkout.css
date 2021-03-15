@@ -16,3 +16,14 @@
     margin: 0;
     height: 100%;
 }
+
+select,
+select option {
+    color: #000000;
+}
+
+select:invalid,
+select option[value=""],
+.stripe-style-input::placeholder {
+    color: #aab7c4 !important;
+}

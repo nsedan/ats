@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+    
+        <div class="col-6">
+            <table class="table table-sm mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Workout Info</th>
+                        <th scope="col"></th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in cart_items %}
+                    <tr>
+                        <td class="p-3 w-25">
+                            <img class="img-fluid rounded" src="">
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0"><strong>{{ item.workout.name }}</strong></p>
+                        </td>
+                        <td class="py-3">
+                            <p class="my-0">£{{ item.workout.price }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td colspan="5" class="pt-5 text-right">
+                            <h5><strong>Order Total: £{{ total|floatformat:2 }}</strong></h5>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-6">
+            <form action="{% url 'checkout' %}" method="POST" id="payment-form">
+                {% csrf_token %}
+
+                <fieldset>
+                    <legend class="fieldset-label">Details</legend>
+                    {{ order_form.full_name | as_crispy_field }}
+                    {{ order_form.email | as_crispy_field }}
+                    {{ order_form.country | as_crispy_field }}
+                    {{ order_form.town_or_city | as_crispy_field }}
+                </fieldset>
+
+                <fieldset>
+                    <legend class="fieldset-label">Payment</legend>
+
+                    <!-- A Stripe card element will go here -->
+                    <div id="card-element"></div>
+                    <!-- Used to display form errors -->
+                    <div class="text-danger" id="card-errors" role="alert"></div>
+                    <!-- Pass the client secret to the view to get the payment intent id -->
+                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
+
+                </fieldset>
+
+                <div class="text-right">                    
+                    <a href="{% url 'view_cart' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-chevron-left"></i>
+                        <span class="text-uppercase">Adjust Cart</span>
+                    </a>
+                    <button class="btn btn-secondary">
+                        <span class="text-uppercase">Complete Order</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    
+    <div id="loading-overlay">
+        <h1 class="text-light logo-font loading-spinner">
+            <span class="icon">
+                <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+            </span>
+        </h1>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+{% endblock %}

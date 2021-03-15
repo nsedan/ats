@@ -27,8 +27,7 @@ class Order(models.Model):
         Update order total each time a line item is added.
         """
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))[
-            'lineitem_total__sum']
-        print("Total", self.order_total)
+            'lineitem_total__sum'] or 0
         self.save()
 
     def save(self, *args, **kwargs):
@@ -39,7 +38,6 @@ class Order(models.Model):
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
-        print("Order saved")
 
     def __str__(self):
         return self.order_number
@@ -61,9 +59,7 @@ class OrderLineItem(models.Model):
         and update the order total.
         """
         self.lineitem_total = self.workout.price
-        self.save()
         super().save(*args, **kwargs)
-        print("Saved")
 
     def __str__(self):
-        return f'Workout ID on order {self.order.order_number}'
+        return f'Workout {self.workout.id} on order {self.order.order_number}'

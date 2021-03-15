@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
 {% block content %}
     <div class="row">
     
@@ -51,10 +55,12 @@
 
                 <fieldset>
                     <legend class="fieldset-label">Payment</legend>
+
                     <!-- A Stripe card element will go here -->
                     <div id="card-element"></div>
                     <!-- Used to display form errors -->
                     <div class="text-danger" id="card-errors" role="alert"></div>
+
                 </fieldset>
 
                 <div class="text-right">                    
@@ -70,7 +76,14 @@
             </form>
         </div>
     </div>
-
+    
+    <div id="loading-overlay">
+        <h1 class="text-light logo-font loading-spinner">
+            <span class="icon">
+                <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+            </span>
+        </h1>
+    </div>
 {% endblock %}
 
 {% block postloadjs %}

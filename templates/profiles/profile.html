@@ -9,4 +9,19 @@
                 <h2 class="logo-font mb-4">My Profile</h2>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <p>Default Billing Information</p>
+                <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-secondary text-uppercase float-right">Update Information</button>
+                </form>
+            </div>
+            <div class="col-12 col-lg-6">
+                <p>Order History</p>
+                {{ orders }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

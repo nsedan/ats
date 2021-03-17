@@ -8,6 +8,8 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from workouts.models import Workout
 from cart.contexts import cart_contents
+from profiles.forms import UserProfileForm
+from profiles.models import UserProfile
 
 import stripe
 import json
@@ -91,7 +93,19 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
 
-        order_form = OrderForm()
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'country': profile.default_country,
+                    'town_or_city': profile.default_town_or_city,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        # else:
+            # Handle if an unauthenticated user sees this page.
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
@@ -109,6 +123,13 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.user_profile = profile
+        order.save()
+
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')

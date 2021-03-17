@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Workout, Category
+from .forms import WorkoutForm
 
 
 def all_workouts(request):
@@ -76,3 +77,14 @@ def workout_detail(request, workout_id):
     }
 
     return render(request, 'workouts/workout_detail.html', context)
+
+
+def add_workout(request):
+    """ Add a workout to the store """
+    form = WorkoutForm()
+    template = 'workouts/add_workout.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)

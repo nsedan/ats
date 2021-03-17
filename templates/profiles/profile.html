@@ -24,10 +24,10 @@
                     <table class="table table-sm table-borderless">
                         <thead>
                             <tr>
-                                <th>Order No</th>
+                                <th>Order</th>
                                 <th>Date</th>
                                 <th>Items</th>
-                                <th>Order Total</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,7 +44,7 @@
                                         <ul class="list-unstyled">
                                             {% for item in order.lineitems.all %}
                                                 <li class="small">
-                                                    {{ item.product.name }}
+                                                    {{ item.workout.name }}
                                                 </li>
                                             {% endfor %}
                                         </ul>

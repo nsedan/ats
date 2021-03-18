@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-6">
-                <hr>
                 <h2 class="logo-font">Workout Management</h2>
-                <h5 class="text-muted">Add a Workout</h5>
+                <h5 class="text-muted">Edit a Workout</h5>
                 <hr>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 col-md-6">
-                <form method="POST" action="{% url 'add_workout' %}" class="form" enctype="multipart/form-data">
+                <form method="POST" action="{% url 'edit_workout' workout.id %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | crispy }}
                     <div class="text-right">
                         <a class="btn btn-outline-secondary" href="{% url 'workouts' %}">Cancel</a>
-                        <button class="btn btn-secondary" type="submit">Add Workout</button>
+                        <button class="btn btn-secondary" type="submit">Update Workout</button>
                     </div>
                 </form>
             </div>            

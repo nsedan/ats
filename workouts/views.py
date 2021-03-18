@@ -81,10 +81,53 @@ def workout_detail(request, workout_id):
 
 def add_workout(request):
     """ Add a workout to the store """
-    form = WorkoutForm()
+    if request.method == 'POST':
+        form = WorkoutForm(request.POST, request.FILES)
+        if form.is_valid():
+            workout = form.save()
+            messages.success(request, 'Successfully added workout!')
+            return redirect(reverse('workout_detail', args=[workout.id]))
+        else:
+            messages.error(
+                request, 'Failed to add workout. Please ensure the form is valid.')
+    else:
+        form = WorkoutForm()
+
     template = 'workouts/add_workout.html'
     context = {
         'form': form,
     }
+    return render(request, template, context)
+
+
+def edit_workout(request, workout_id):
+    """ Edit a workout in the store """
+    workout = get_object_or_404(Workout, pk=workout_id)
+    if request.method == 'POST':
+        form = WorkoutForm(request.POST, request.FILES, instance=workout)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully updated workout!')
+            return redirect(reverse('workout_detail', args=[workout.id]))
+        else:
+            messages.error(
+                request, 'Failed to update workout. Please ensure the form is valid.')
+    else:
+        form = WorkoutForm(instance=workout)
+        messages.info(request, f'You are editing {workout.name}')
+
+    template = 'workouts/edit_workout.html'
+    context = {
+        'form': form,
+        'workout': workout,
+    }
 
     return render(request, template, context)
+
+
+def delete_workout(request, workout_id):
+    """ Delete a workout from the store """
+    workout = get_object_or_404(Workout, pk=workout_id)
+    workout.delete()
+    messages.success(request, 'Workout deleted!')
+    return redirect(reverse('workouts'))

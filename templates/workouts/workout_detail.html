@@ -8,9 +8,19 @@
         <div class="col-4">
             {% if workout %}
                 <div class="card">
-                    <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="Card image cap">
+                    {% if workout.image %}
+                        <img class="card-img-top" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                    {% else %}
+                        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                    {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ workout.name }}</h5>
+                        {% if request.user.is_superuser %}
+                            <div>
+                                <a href="{% url 'edit_workout' workout.id %}">Edit</a> 
+                                <a href="{% url 'delete_workout' workout.id %}">Delete</a>
+                            </div>
+                        {% endif %}
                         {% if workout.category %}
                             <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
                                 <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>

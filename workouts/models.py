@@ -29,7 +29,7 @@ class Workout(models.Model):
     difficulty = models.CharField(max_length=12, choices=diff_choices)
     duration = models.IntegerField(null=True, blank=True)
     rating = models.DecimalField(
-        max_digits=6, decimal_places=2, blank=True, null=True)
+        max_digits=6, decimal_places=2, blank=True, null=True, default=0)
     image_url = models.URLField(max_length=1024, blank=True)
     image = models.ImageField(blank=True)
 

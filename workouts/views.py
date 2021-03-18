@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Workout, Category
+from .models import Workout, Category, WorkoutType
 from .forms import WorkoutForm
 
 

@@ -10,7 +10,7 @@
         </div>
         <div class="col-6">
             <div class="dropdown d-inline">
-                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownCategoryLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownCategoryLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Categories
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownCategoryLink">
@@ -46,7 +46,6 @@
                         {% if request.user.is_superuser %}
                             <div>
                                 <a href="{% url 'edit_workout' workout.id %}">Edit</a> 
-                                <a href="{% url 'delete_workout' workout.id %}">Delete</a>
                             </div>
                         {% endif %}
                         {% if workout.category %}
@@ -54,10 +53,8 @@
                                 <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
                             </a>
                         {% endif %}
-                        {% if workout.tags.all %}
-                            {% for tag in workout.tags.all %}
-                                <span class="badge badge-secondary text-capitalize">{{ tag.name }}</span>
-                            {% endfor %}
+                        {% if workout.workout_type %}
+                            <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
                         {% endif %}
                     </div>
                     <ul class="list-group list-group-flush">
@@ -66,7 +63,15 @@
                         <li class="list-group-item py-1">£ {{ workout.price }}</li>
                     </ul>
                     <div class="card-body py-2">
-                        <a href="#" class="card-link">Add to cart</a>
+                        <form class="form" action="{% url 'add_to_cart' workout.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-secondary text-uppercase" value="Add to Cart">
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

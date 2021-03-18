@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
@@ -7,6 +8,7 @@ from .models import Workout, Category
 from .forms import WorkoutForm
 
 
+@login_required
 def all_workouts(request):
     """ A view to return all workouts """
 
@@ -79,8 +81,13 @@ def workout_detail(request, workout_id):
     return render(request, 'workouts/workout_detail.html', context)
 
 
+@login_required
 def add_workout(request):
     """ Add a workout to the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
     if request.method == 'POST':
         form = WorkoutForm(request.POST, request.FILES)
         if form.is_valid():
@@ -100,8 +107,13 @@ def add_workout(request):
     return render(request, template, context)
 
 
+@login_required
 def edit_workout(request, workout_id):
     """ Edit a workout in the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
     workout = get_object_or_404(Workout, pk=workout_id)
     if request.method == 'POST':
         form = WorkoutForm(request.POST, request.FILES, instance=workout)
@@ -125,8 +137,13 @@ def edit_workout(request, workout_id):
     return render(request, template, context)
 
 
+@login_required
 def delete_workout(request, workout_id):
     """ Delete a workout from the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
     workout = get_object_or_404(Workout, pk=workout_id)
     workout.delete()
     messages.success(request, 'Workout deleted!')

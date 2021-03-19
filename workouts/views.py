@@ -153,7 +153,8 @@ def edit_workout(request, workout_id):
 
 @login_required
 def delete_workout(request, workout_id):
-    """ Delete a workout from the store """
+    """ Delete a workout from the store.
+        It's use is not recommended."""
     if not request.user.is_superuser:
         messages.error(request, 'You cannot do that!')
         return redirect(reverse('home'))

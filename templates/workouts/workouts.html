@@ -8,7 +8,8 @@
         <div class="col-3">
             {% include "inc/search.html" %}
         </div>
-        <div class="col-6">
+
+        <div class="col-3">
             <div class="dropdown d-inline">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownCategoryLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Categories
@@ -20,9 +21,25 @@
                 </div>
             </div>
             {% for c in current_categories %}
-                <span class="btn btn-secondary">{{ c.friendly_name }}</span>
+                <span class="btn btn-outline-secondary">{{ c.friendly_name }}</span>
             {% endfor %}
         </div>
+        <div class="col-3">
+            <div class="dropdown d-inline">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownTypeLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Types
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownTypeLink">
+                    {% for type in all_types %}
+                    <a class="dropdown-item" href="{% url 'workouts' %}?workout_type={{type.name}}">{{type.friendly_name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% for t in current_types %}
+                <span class="btn btn-outline-secondary">{{ t.friendly_name }}</span>
+            {% endfor %}
+        </div>
+
         <div class="col-3">
             {% include "inc/filters.html" %}
         </div>
@@ -54,7 +71,9 @@
                             </a>
                         {% endif %}
                         {% if workout.workout_type %}
-                            <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
+                            <a href="{% url 'workouts' %}?workout_type={{ workout.workout_type.name }}">
+                                <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
+                            </a>
                         {% endif %}
                     </div>
                     <ul class="list-group list-group-flush">

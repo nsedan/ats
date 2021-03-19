@@ -8,6 +8,7 @@ class WorkoutAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'category',
+        'workout_type',
         'difficulty',
         'price',
         'rating',

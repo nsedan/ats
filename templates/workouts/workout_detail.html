@@ -26,7 +26,9 @@
                             </a>
                         {% endif %}
                         {% if workout.workout_type %}
-                            <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
+                            <a href="{% url 'workouts' %}?type={{ workout.workout_type.name }}">
+                                <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
+                            </a>
                         {% endif %}
                     </div>
                     <ul class="list-group list-group-flush">

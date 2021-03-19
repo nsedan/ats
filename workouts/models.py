@@ -45,6 +45,7 @@ class Workout(models.Model):
     rating = models.DecimalField(
         max_digits=6, decimal_places=2, blank=True, null=True, default=0)
     image = models.ImageField(blank=True)
+    workout_program = models.ImageField(blank=True)
     is_deleted = models.BooleanField(default=False, verbose_name='Inactive')
 
     def __str__(self):

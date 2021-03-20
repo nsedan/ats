@@ -32,7 +32,8 @@ class WorkoutType(models.Model):
 
 
 class Workout(models.Model):
-    diff_choices = (("Easy", "Easy"), ("Medium", "Medium"), ("Hard", "Hard"),)
+    diff_choices = (("1", "Very Easy"), ("2", "Easy"),
+                    ("3", "Medium"), ("4", "Hard"), ("5", "Very Hard"),)
 
     name = models.CharField(max_length=254)
     description = models.TextField()

@@ -13,6 +13,8 @@ class WorkoutForm(forms.ModelForm):
 
     image = forms.ImageField(
         label='Image', required=False, widget=CustomClearableFileInput)
+    workout_program = forms.ImageField(
+        label='Program', required=False, widget=CustomClearableFileInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -27,5 +29,3 @@ class WorkoutForm(forms.ModelForm):
 
         self.fields['category'].choices = friendly_categories
         self.fields['workout_type'].choices = friendly_types
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = ''

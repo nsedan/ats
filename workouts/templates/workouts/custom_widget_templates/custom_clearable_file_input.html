@@ -12,7 +12,12 @@
     {{ widget.input_text }}
 {% endif %}
 <span class="btn btn-secondary btn-file">
-    Select Image <input id="new-image" type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    {% if widget.name == 'image' %}
+       <span>Select Image</span>
+    {% elif widget.name == 'workout_program' %}
+       <span>Upload Program</span>
+    {% endif %}
+    <input id="new-image" type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
 </span>
 <strong><p class="text-danger" id="filename"></p></strong>
 

@@ -1,5 +1,4 @@
 from django.db import models
-from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -17,21 +16,38 @@ class Category(models.Model):
         return self.friendly_name
 
 
-class Workout(models.Model):
-    diff_choices = (("Easy", "Easy"), ("Medium", "Medium"), ("Hard", "Hard"),)
+class WorkoutType(models.Model):
 
-    category = models.ForeignKey(
-        'Category', null=True, blank=True, on_delete=models.SET_NULL)
+    class Meta:
+        verbose_name_plural = 'Workout Types'
+
+    name = models.CharField(max_length=254)
+    friendly_name = models.CharField(max_length=254, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_friendly_name(self):
+        return self.friendly_name
+
+
+class Workout(models.Model):
+    diff_choices = (("1", "Very Easy"), ("2", "Easy"),
+                    ("3", "Medium"), ("4", "Hard"), ("5", "Very Hard"),)
+
     name = models.CharField(max_length=254)
     description = models.TextField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    tags = TaggableManager()
+    category = models.ForeignKey(
+        'Category', null=True, on_delete=models.SET_NULL)
+    workout_type = models.ForeignKey(
+        'WorkoutType', null=True, on_delete=models.SET_NULL)
     difficulty = models.CharField(max_length=12, choices=diff_choices)
-    duration = models.IntegerField(null=True, blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     rating = models.DecimalField(
         max_digits=6, decimal_places=2, blank=True, null=True, default=0)
-    image_url = models.URLField(max_length=1024, blank=True)
     image = models.ImageField(blank=True)
+    workout_program = models.ImageField(blank=True)
+    is_deleted = models.BooleanField(default=False, verbose_name='Inactive')
 
     def __str__(self):
         return self.name

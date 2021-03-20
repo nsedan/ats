@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Workout, Category
+from .models import Workout, Category, WorkoutType
 from .forms import WorkoutForm
 
 
@@ -14,7 +14,9 @@ def all_workouts(request):
 
     workouts = Workout.objects.all()
     all_categories = Category.objects.all()
+    all_types = WorkoutType.objects.all()
     current_categories = None
+    current_types = None
     query = None
     sort = None
     direction = None
@@ -27,9 +29,11 @@ def all_workouts(request):
                 sortkey = 'lower_name'
                 workouts = workouts.annotate(lower_name=Lower('name'))
 
-            # Allow to sort by category name instead of category ID
+            # Allow to sort by category or type name instead of ID
             if sortkey == 'category':
                 sortkey = 'category__name'
+            if sortkey == 'workout_type':
+                sortkey = 'workout_type__name'
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']
@@ -42,6 +46,12 @@ def all_workouts(request):
             workouts = workouts.filter(category__name__in=current_categories)
             current_categories = Category.objects.filter(
                 name__in=current_categories)
+
+        if 'workout_type' in request.GET:
+            current_types = request.GET['workout_type'].split(',')
+            workouts = workouts.filter(workout_type__name__in=current_types)
+            current_types = WorkoutType.objects.filter(
+                name__in=current_types)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -61,6 +71,8 @@ def all_workouts(request):
         'search_term': query,
         'all_categories': all_categories,
         'current_categories': current_categories,
+        'all_types': all_types,
+        'current_types': current_types,
         'current_sorting': current_sorting,
     }
 
@@ -72,10 +84,12 @@ def workout_detail(request, workout_id):
 
     workout = get_object_or_404(Workout, pk=workout_id)
     all_categories = Category.objects.all()
+    all_types = WorkoutType.objects.all()
 
     context = {
         'workout': workout,
         'all_categories': all_categories,
+        'all_types': all_types,
     }
 
     return render(request, 'workouts/workout_detail.html', context)
@@ -139,7 +153,8 @@ def edit_workout(request, workout_id):
 
 @login_required
 def delete_workout(request, workout_id):
-    """ Delete a workout from the store """
+    """ Delete a workout from the store.
+        It's use is not recommended."""
     if not request.user.is_superuser:
         messages.error(request, 'You cannot do that!')
         return redirect(reverse('home'))

@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+
+from profiles.models import UserProfile
+from checkout.models import OrderLineItem
 
 
 def view_cart(request):
@@ -11,13 +14,26 @@ def view_cart(request):
 def add_to_cart(request, item_id):
     """ Add a workout to the shopping cart """
 
+    profile = get_object_or_404(UserProfile, user=request.user)
+    orders = profile.orders.all()
+    user_workouts = []
+    for order in orders:
+        order = get_object_or_404(OrderLineItem, order=order)
+        item = order.workout.id
+        user_workouts.append(str(item))
+
     redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', [])
 
-    if item_id not in list(cart):
-        cart.append(item_id)
+    if item_id not in list(user_workouts):
+        if item_id not in list(cart):
+            cart.append(item_id)
+            print(type(item_id))
+        # else:
+            # TODO: disable add to cart botton on frontend
+            # message - item already in cart
     # else:
-        # TODO: disable add to cart botton on frontend
+        # message - item already purchased
 
     request.session['cart'] = cart
     return redirect(redirect_url)

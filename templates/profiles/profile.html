@@ -25,14 +25,14 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-workouts" role="tabpanel" aria-labelledby="nav-workouts-tab">
             {% for order in orders %}
-            {% for item in order.lineitems.all %}
-            <a href="{% url 'workout_detail' item.workout.id %}">
-                {% if item.workout.image %}
-                <img width="96" height="96" class="rounded shadow-sm" src="{{ item.workout.image.url }}">
-                {% endif %}
-                <p>{{ item.workout.name }}</p>
-            </a>
-            {% endfor %}
+                {% for item in order.lineitems.all %}
+                <a href="{% url 'workout_detail' item.workout.id %}">
+                    {% if item.workout.image %}
+                    <img width="96" height="96" class="rounded shadow-sm" src="{{ item.workout.image.url }}">
+                    {% endif %}
+                    <p>{{ item.workout.name }}</p>
+                </a>
+                {% endfor %}
             {% endfor %}
         </div>
 

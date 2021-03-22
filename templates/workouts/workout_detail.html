@@ -33,7 +33,7 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{ workout.description }}</li>
-                        <li class="list-group-item">{{ workout.difficulty }}</li>
+                        <li class="list-group-item">{{ workout.get_difficulty_display }}</li>
                         <li class="list-group-item">{{ workout.rating }} / 10</li>
                         <li class="list-group-item">£ {{ workout.price }}</li>
                     </ul>

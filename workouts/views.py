@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Workout, Category, WorkoutType
+from .models import Workout, Category, WorkoutType, Review
 from .forms import WorkoutForm
 from profiles.models import UserProfile
 from checkout.models import OrderLineItem
@@ -93,11 +93,13 @@ def workout_detail(request, workout_id):
     """ A view to return an specific workout """
 
     workout = get_object_or_404(Workout, pk=workout_id)
+    reviews = Review.objects.all().filter(workout=workout_id)
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
 
     context = {
         'workout': workout,
+        'reviews': reviews,
         'all_categories': all_categories,
         'all_types': all_types,
     }

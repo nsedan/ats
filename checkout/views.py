@@ -8,7 +8,6 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from workouts.models import Workout
 from cart.contexts import cart_contents
-from profiles.forms import UserProfileForm
 from profiles.models import UserProfile
 
 import stripe
@@ -37,7 +36,6 @@ def checkout(request):
 
     if request.method == 'POST':
         cart = request.session.get('cart', {})
-        print(f'CART{cart}')
 
         form_data = {
             'full_name': request.POST['full_name'],
@@ -55,7 +53,6 @@ def checkout(request):
             order.save()
 
             for item_id in cart:
-                print(item_id)
                 try:
                     workout = Workout.objects.get(id=item_id)
                     order_line_item = OrderLineItem(

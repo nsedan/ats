@@ -6,13 +6,22 @@ from django.db.models.functions import Lower
 
 from .models import Workout, Category, WorkoutType
 from .forms import WorkoutForm
+from profiles.models import UserProfile
+from checkout.models import OrderLineItem
 
 
 @login_required
 def all_workouts(request):
-    """ A view to return all workouts """
+    """ A view to return all workouts available for the current user """
 
     workouts = Workout.objects.all()
+    profile = get_object_or_404(UserProfile, user=request.user)
+    orders = profile.orders.all()
+    for order in orders:
+        order = get_object_or_404(OrderLineItem, order=order)
+        item = order.workout.id
+        workouts = workouts.exclude(id=item)
+
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
     current_categories = None

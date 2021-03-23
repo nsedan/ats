@@ -14,6 +14,10 @@ class WorkoutAdmin(admin.ModelAdmin):
         'rating',
         'is_deleted',
     )
+    list_filter = (
+        'category',
+        'workout_type'
+    )
     ordering = ('name',)
 
 

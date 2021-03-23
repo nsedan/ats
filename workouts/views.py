@@ -17,11 +17,6 @@ def all_workouts(request):
     workouts = Workout.objects.all()
     profile = get_object_or_404(UserProfile, user=request.user)
     orders = profile.orders.all()
-    for order in orders:
-        order = get_object_or_404(OrderLineItem, order=order)
-        item = order.workout.id
-        workouts = workouts.exclude(id=item)
-
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
     current_categories = None
@@ -29,6 +24,12 @@ def all_workouts(request):
     query = None
     sort = None
     direction = None
+
+    if not request.user.is_superuser:
+        for order in orders:
+            order = get_object_or_404(OrderLineItem, order=order)
+            item = order.workout.id
+            workouts = workouts.exclude(id=item)
 
     if request.GET:
         if 'sort' in request.GET:

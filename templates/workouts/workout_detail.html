@@ -68,6 +68,7 @@
                 {% else %}
                     <p>No reviews available.</p>
                 {% endif %}
+                <a class="btn btn-secondary text-uppercase" href="{% url 'add_review' workout.id %}">Add Review</a>
             </div>
 
         </div>

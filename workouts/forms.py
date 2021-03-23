@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Workout, Category, WorkoutType
+from .models import Workout, Category, WorkoutType, Review
 from .widgets import CustomClearableFileInput
 
 
@@ -29,3 +29,16 @@ class WorkoutForm(forms.ModelForm):
 
         self.fields['category'].choices = friendly_categories
         self.fields['workout_type'].choices = friendly_types
+
+
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = Review
+        exclude = ('__all__')
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super().__init__(*args, **kwargs)
+        self.fields['user'].initial = self.request.user
+        self.fields['workout'].initial = self.instance

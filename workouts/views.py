@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Workout, Category, WorkoutType, Review
-from .forms import WorkoutForm
+from .forms import WorkoutForm, ReviewForm
 from profiles.models import UserProfile
 from checkout.models import OrderLineItem
 
@@ -175,3 +175,30 @@ def delete_workout(request, workout_id):
     workout.delete()
     messages.success(request, 'Workout deleted!')
     return redirect(reverse('workouts'))
+
+
+@login_required
+def add_review(request, workout_id):
+    """ Add a review to a workout """
+
+    workout = get_object_or_404(Workout, pk=workout_id)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, request=request, instance=workout)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added review!')
+            print('success')
+            return redirect(reverse('workout_detail', args=[workout.id]))
+        else:
+            messages.error(
+                request, 'Failed to add review. Please ensure the form is valid.')
+            print('error')
+    else:
+        form = ReviewForm(instance=workout, request=request)
+
+    template = 'reviews/add_review.html'
+    context = {
+        'form': form,
+        'workout': workout,
+    }
+    return render(request, template, context)

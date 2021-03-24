@@ -54,7 +54,6 @@ class Workout(models.Model):
 
 class Review(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
     workout = models.ForeignKey('Workout', on_delete=models.CASCADE,
                                 related_name='reviews',
                                 related_query_name='review')
@@ -63,7 +62,6 @@ class Review(models.Model):
                              related_query_name='review')
     rating = models.IntegerField(blank=True, null=True, default=0)
     created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.title

@@ -41,7 +41,6 @@ class ReviewAdmin(admin.ModelAdmin):
         'workout',
         'rating',
         'created_at',
-        'updated_at'
     )
 
 

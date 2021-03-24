@@ -185,17 +185,13 @@ def add_review(request, workout_id):
     if request.method == 'POST':
         form = ReviewForm(request.POST, initial={
                           "user": request.user, "workout": workout})
-        print(form.is_valid())
-        print(form)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully added review!')
-            print('success')
             return redirect(reverse('workout_detail', args=[workout.id]))
         else:
             messages.error(
                 request, 'Failed to add review. Please ensure the form is valid.')
-            print('error')
     else:
         form = ReviewForm(initial={"user": request.user, "workout": workout})
 

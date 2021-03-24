@@ -43,8 +43,7 @@ class Workout(models.Model):
         'WorkoutType', null=True, on_delete=models.SET_NULL)
     difficulty = models.CharField(max_length=12, choices=diff_choices)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    rating = models.DecimalField(
-        max_digits=6, decimal_places=2, blank=True, null=True, default=0)
+    rating = models.IntegerField(blank=True, null=True, default=0)
     image = models.ImageField(blank=True)
     workout_program = models.ImageField(blank=True)
     is_deleted = models.BooleanField(default=False, verbose_name='Inactive')
@@ -62,8 +61,7 @@ class Review(models.Model):
     user = models.ForeignKey('profiles.UserProfile', on_delete=models.CASCADE,
                              related_name='reviews',
                              related_query_name='review')
-    rating = models.DecimalField(
-        max_digits=6, decimal_places=2, blank=True, null=True, default=0)
+    rating = models.IntegerField(blank=True, null=True, default=0)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 

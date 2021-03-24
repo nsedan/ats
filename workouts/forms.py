@@ -35,10 +35,7 @@ class ReviewForm(forms.ModelForm):
 
     class Meta:
         model = Review
-        exclude = ('__all__')
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
-        self.fields['user'].initial = self.request.user
-        self.fields['workout'].initial = self.instance

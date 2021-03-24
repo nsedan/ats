@@ -183,7 +183,10 @@ def add_review(request, workout_id):
 
     workout = get_object_or_404(Workout, pk=workout_id)
     if request.method == 'POST':
-        form = ReviewForm(request.POST, request=request, instance=workout)
+        form = ReviewForm(request.POST, initial={
+                          "user": request.user, "workout": workout})
+        print(form.is_valid())
+        print(form)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully added review!')
@@ -194,7 +197,7 @@ def add_review(request, workout_id):
                 request, 'Failed to add review. Please ensure the form is valid.')
             print('error')
     else:
-        form = ReviewForm(instance=workout, request=request)
+        form = ReviewForm(initial={"user": request.user, "workout": workout})
 
     template = 'reviews/add_review.html'
     context = {

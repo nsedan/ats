@@ -41,3 +41,5 @@ class ReviewForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['user'].widget = forms.HiddenInput()
         self.fields['workout'].widget = forms.HiddenInput()
+        self.fields['rating'].widget.attrs['min'] = 0
+        self.fields['rating'].widget.attrs['max'] = 100

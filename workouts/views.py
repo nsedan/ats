@@ -182,18 +182,26 @@ def add_review(request, workout_id):
     """ Add a review to a workout """
 
     workout = get_object_or_404(Workout, pk=workout_id)
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, initial={
-                          "user": request.user, "workout": workout})
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Successfully added review!')
-            return redirect(reverse('workout_detail', args=[workout.id]))
+    current_user = request.user.id
+    userobj = UserProfile.objects.get(id=current_user)
+    review = Review.objects.all().filter(workout=workout, user=userobj)
+
+    if not review:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, initial={
+                "user": request.user, "workout": workout})
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully added review!')
+                return redirect(reverse('workout_detail', args=[workout.id]))
+            else:
+                messages.error(
+                    request, 'Failed to add review. Please ensure the form is valid.')
         else:
-            messages.error(
-                request, 'Failed to add review. Please ensure the form is valid.')
+            form = ReviewForm(
+                initial={"user": request.user, "workout": workout})
     else:
-        form = ReviewForm(initial={"user": request.user, "workout": workout})
+        return redirect(reverse('workout_detail', args=[workout.id]))
 
     template = 'reviews/add_review.html'
     context = {

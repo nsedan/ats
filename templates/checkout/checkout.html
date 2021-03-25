@@ -19,16 +19,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for item in cart_items %}
+                {% for workout in cart_items %}
                     <tr>
                         <td class="p-3 w-25">
                             <img class="img-fluid rounded" src="">
                         </td>
                         <td class="py-3">
-                            <p class="my-0"><strong>{{ item.workout.name }}</strong></p>
+                            <p class="my-0"><strong>{{ workout.name }}</strong></p>
                         </td>
                         <td class="py-3">
-                            <p class="my-0">£{{ item.workout.price }}</p>
+                            <p class="my-0">£{{ workout.price }}</p>
                         </td>
                     </tr>
                 {% endfor %}

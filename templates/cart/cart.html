@@ -20,7 +20,11 @@
                         {% for workout in cart_items %}
                             <tr>
                                 <td class="p-3 w-25">
-                                    <img class="img-fluid rounded" src="">
+                                    {% if workout.image %}
+                                        <img class="img-thumbnail img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                                    {% else %}
+                                        <img class="img-thumbnail img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                                    {% endif %}
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0"><strong>{{ workout.name }}</strong></p>

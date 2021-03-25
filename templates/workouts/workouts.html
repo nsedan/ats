@@ -52,11 +52,11 @@
                     <div class="card">
                         {% if workout.image %}
                         <a href="{% url 'workout_detail' workout.id %}">
-                            <img class="card-img-top" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                            <img class="card-img-top img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
                         </a>
                         {% else %}
                         <a href="{% url 'workout_detail' workout.id %}">
-                            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                            <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
                         </a>
                         {% endif %}
                         <div class="card-body">
@@ -129,11 +129,11 @@
                         <div class="card">
                             {% if workout.image %}
                             <a href="{% url 'workout_detail' workout.id %}">
-                                <img class="card-img-top" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                                <img class="card-img-top img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
                             </a>
                             {% else %}
                             <a href="{% url 'workout_detail' workout.id %}">
-                                <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                                <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
                             </a>
                             {% endif %}
                             <div class="card-body">

@@ -9,9 +9,9 @@
 
             <div class="col-12 col-lg-4 col-sm-6">
                 {% if workout.image %}
-                    <img src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                    <img class="img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
                 {% else %}
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
                 {% endif %}
             </div>
 

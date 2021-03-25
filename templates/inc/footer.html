@@ -1,29 +1,47 @@
-<footer class="mt-4 pt-4 px-4 pt-md-5 border-top bg-dark">
+<footer class="p-4 pt-md-5 border-top bg-dark">
     <div class="row">
-        <div class="col-12 col-md">
-            <img class="mb-2" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
-            <small class="d-block mb-3 text-muted">&copy; 2021</small>
+        <div class="col-12 col-md offset-1">
+            <a class="navbar-brand brand" href="{% url 'home' %}">ATS</a>
+            <small class="d-block mb-3 text-muted"><i class="far fa-copyright"></i> 2021</small>
         </div>
         <div class="col-6 col-md">
-            <h5>Features</h5>
+            <h5 class="text-danger">Features</h5>
             <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Cool stuff</a></li>
-                <li><a class="text-muted" href="#">Random feature</a></li>
+                <li><a class="text-muted" href="{% url 'workouts' %}">Workouts</a></li>
+                <li><a class="text-muted" href="{% url 'view_cart' %}">Cart</a></li>
             </ul>
         </div>
         <div class="col-6 col-md">
-            <h5>Resources</h5>
+            <h5 class="text-danger">Account</h5>
             <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Resource</a></li>
-                <li><a class="text-muted" href="#">Resource name</a></li>
-                <li><a class="text-muted" href="#">Another resource</a></li>
+                <li><a class="text-muted" href="{% url 'profile' %}/#nav-workouts">My Workouts</a></li>
+                <li><a class="text-muted" href="{% url 'profile' %}/#nav-billing">Billing</a></li>
+                <li><a class="text-muted" href="{% url 'profile' %}/#nav-orders">Orders</a></li>
             </ul>
         </div>
-        <div class="col-6 col-md">
-            <h5>About</h5>
-            <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Team</a></li>
-            </ul>
+        <div class="col-6 col-md" style="font-size: 2rem;">
+            <a class="text-danger p-1" href="https://facebook.com/" target="_blank">
+                <i class="fab fa-facebook-square"></i>
+            </a>
+            <a class="text-danger p-1" href="https://twitter.com/" target="_blank">
+                <i class="fab fa-instagram-square"></i>
+            </a>
+            <a class="text-danger p-1" href="https://instagram.com/" target="_blank">
+                <i class="fab fa-twitter-square"></i>
+            </a>
         </div>
     </div>
 </footer>
+
+<script>
+    // Thanks to flynfish
+    // https://stackoverflow.com/questions/7862233/twitter-bootstrap-tabs-go-to-specific-tab-on-page-reload-or-hyperlink
+    let hash = document.location.hash;
+    let prefix = "tab_";
+    if (hash) {
+        $('.nav-tabs a[href="'+hash.replace(prefix,"")+'"]').tab('show');
+    } 
+    $('.nav-tabs a').on('shown', function (e) {
+        window.location.hash = e.target.hash.replace("#", "#" + prefix);
+    });
+</script>

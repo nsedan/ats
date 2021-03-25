@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
+
+.brand{
+    font-family: 'Train One', 'Arial';
+    font-weight: bold;
+    color: #dc3545 !important;
+    font-size: 2rem;
+}
+
 a{
     color: inherit;
 }

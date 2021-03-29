@@ -3,7 +3,8 @@
 
 {% block content %}
 <section class="container-fluid">
-    <div class="my-4">
+    <div class="py-4">
+        {{user_can_review}}
         {% if workout %}
         <div class="row">
 
@@ -71,7 +72,9 @@
                 {% else %}
                     <p>No reviews available.</p>
                 {% endif %}
-                <a class="btn btn-secondary text-uppercase" href="{% url 'add_review' workout.id %}">Add Review</a>
+                {% if user_can_review %}
+                    <a class="btn btn-secondary text-uppercase" href="{% url 'add_review' workout.id %}">Add Review</a>
+                {% endif %}
             </div>
 
         </div>

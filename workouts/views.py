@@ -97,11 +97,20 @@ def workout_detail(request, workout_id):
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
 
+    current_user = request.user.id
+    userobj = UserProfile.objects.get(id=current_user)
+    review = Review.objects.all().filter(workout=workout, user=userobj)
+    if review:
+        user_can_review = False
+    else:
+        user_can_review = True
+
     context = {
         'workout': workout,
         'reviews': reviews,
         'all_categories': all_categories,
         'all_types': all_types,
+        'user_can_review': user_can_review,
     }
 
     return render(request, 'workouts/workout_detail.html', context)

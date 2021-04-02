@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Workout, Category, WorkoutType, Review
-from .forms import WorkoutForm, ReviewForm
+from .forms import WorkoutForm, ReviewForm, CategoryForm, WorkoutTypeForm
 from profiles.models import UserProfile
 from checkout.models import OrderLineItem
 
@@ -216,5 +216,57 @@ def add_review(request, workout_id):
     context = {
         'form': form,
         'workout': workout,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def add_category(request):
+    """ Add a category """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added a category!')
+            return redirect(reverse('home'))
+        else:
+            messages.error(
+                request, 'Failed to add a category. Please ensure the form is valid.')
+    else:
+        form = CategoryForm()
+
+    template = 'categories/add_category.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def add_workouttype(request):
+    """ Add a workout type """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = WorkoutTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added a workout type!')
+            return redirect(reverse('home'))
+        else:
+            messages.error(
+                request, 'Failed to add a workout type. Please ensure the form is valid.')
+    else:
+        form = WorkoutTypeForm()
+
+    template = 'types/add_workouttype.html'
+    context = {
+        'form': form,
     }
     return render(request, template, context)

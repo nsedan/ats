@@ -7,7 +7,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     name = models.CharField(max_length=254)
-    friendly_name = models.CharField(max_length=254, blank=True)
+    friendly_name = models.CharField(max_length=254)
 
     def __str__(self):
         return self.name
@@ -22,7 +22,7 @@ class WorkoutType(models.Model):
         verbose_name_plural = 'Workout Types'
 
     name = models.CharField(max_length=254)
-    friendly_name = models.CharField(max_length=254, blank=True)
+    friendly_name = models.CharField(max_length=254)
 
     def __str__(self):
         return self.name

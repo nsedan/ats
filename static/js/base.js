@@ -3,7 +3,7 @@ $('#sort-selector').change(function () {
     let selector = $(this);
     let currentUrl = new URL(window.location);
 
-    let selectedVal = selector.value;
+    let selectedVal = selector.val();
     if (selectedVal != "reset") {
         let sort = selectedVal.split("_")[0];
         let direction = selectedVal.split("_")[1];

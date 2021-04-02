@@ -28,7 +28,6 @@ def add_to_cart(request, item_id):
     if item_id not in list(user_workouts):
         if item_id not in list(cart):
             cart.append(item_id)
-            print(type(item_id))
         # else:
             # TODO: disable add to cart botton on frontend
             # message - item already in cart

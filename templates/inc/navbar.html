@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'home' %}">ATS</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand brand" href="{% url 'home' %}">ATS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,10 +23,15 @@
                 </a>
             </li>
             {% if request.user.is_superuser %}
-            <li class="list-inline-item">
-                <a class="nav-link" href="{% url 'add_workout' %}">
-                    <i class="fas fa-user-cog fa-lg"></i>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cog fa-lg"></i>
                 </a>
+                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                    <a class="dropdown-item" href="{% url 'add_workout' %}">Add Workout</a>
+                    <a class="dropdown-item" href="{% url 'add_category' %}">Add Category</a>
+                    <a class="dropdown-item" href="{% url 'add_workouttype' %}">Add Type</a>
+                </div>
             </li>
             {% endif %}
             <li class="nav-item">

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Workout, Category, WorkoutType
+from .models import Workout, Category, WorkoutType, Review
 
 # Register your models here.
 
@@ -13,6 +13,10 @@ class WorkoutAdmin(admin.ModelAdmin):
         'price',
         'rating',
         'is_deleted',
+    )
+    list_filter = (
+        'category',
+        'workout_type'
     )
     ordering = ('name',)
 
@@ -31,6 +35,16 @@ class WorkoutTypeAdmin(admin.ModelAdmin):
     )
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'workout',
+        'rating',
+        'created_at',
+    )
+
+
 admin.site.register(Workout, WorkoutAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(WorkoutType, WorkoutTypeAdmin)
+admin.site.register(Review, ReviewAdmin)

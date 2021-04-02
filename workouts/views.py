@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Workout, Category, WorkoutType
-from .forms import WorkoutForm
+from .models import Workout, Category, WorkoutType, Review
+from .forms import WorkoutForm, ReviewForm, CategoryForm, WorkoutTypeForm
 from profiles.models import UserProfile
 from checkout.models import OrderLineItem
 
@@ -17,11 +17,6 @@ def all_workouts(request):
     workouts = Workout.objects.all()
     profile = get_object_or_404(UserProfile, user=request.user)
     orders = profile.orders.all()
-    for order in orders:
-        order = get_object_or_404(OrderLineItem, order=order)
-        item = order.workout.id
-        workouts = workouts.exclude(id=item)
-
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
     current_categories = None
@@ -29,6 +24,12 @@ def all_workouts(request):
     query = None
     sort = None
     direction = None
+
+    if not request.user.is_superuser:
+        for order in orders:
+            order = get_object_or_404(OrderLineItem, order=order)
+            item = order.workout.id
+            workouts = workouts.exclude(id=item)
 
     if request.GET:
         if 'sort' in request.GET:
@@ -92,13 +93,24 @@ def workout_detail(request, workout_id):
     """ A view to return an specific workout """
 
     workout = get_object_or_404(Workout, pk=workout_id)
+    reviews = Review.objects.all().filter(workout=workout_id)
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
 
+    current_user = request.user.id
+    userobj = UserProfile.objects.get(id=current_user)
+    review = Review.objects.all().filter(workout=workout, user=userobj)
+    if review:
+        user_can_review = False
+    else:
+        user_can_review = True
+
     context = {
         'workout': workout,
+        'reviews': reviews,
         'all_categories': all_categories,
         'all_types': all_types,
+        'user_can_review': user_can_review,
     }
 
     return render(request, 'workouts/workout_detail.html', context)
@@ -172,3 +184,89 @@ def delete_workout(request, workout_id):
     workout.delete()
     messages.success(request, 'Workout deleted!')
     return redirect(reverse('workouts'))
+
+
+@login_required
+def add_review(request, workout_id):
+    """ Add a review to a workout """
+
+    workout = get_object_or_404(Workout, pk=workout_id)
+    current_user = request.user.id
+    userobj = UserProfile.objects.get(id=current_user)
+    review = Review.objects.all().filter(workout=workout, user=userobj)
+
+    if not review:
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, initial={
+                "user": request.user, "workout": workout})
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully added review!')
+                return redirect(reverse('workout_detail', args=[workout.id]))
+            else:
+                messages.error(
+                    request, 'Failed to add review. Please ensure the form is valid.')
+        else:
+            form = ReviewForm(
+                initial={"user": request.user, "workout": workout})
+    else:
+        return redirect(reverse('workout_detail', args=[workout.id]))
+
+    template = 'reviews/add_review.html'
+    context = {
+        'form': form,
+        'workout': workout,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def add_category(request):
+    """ Add a category """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added a category!')
+            return redirect(reverse('home'))
+        else:
+            messages.error(
+                request, 'Failed to add a category. Please ensure the form is valid.')
+    else:
+        form = CategoryForm()
+
+    template = 'categories/add_category.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def add_workouttype(request):
+    """ Add a workout type """
+    if not request.user.is_superuser:
+        messages.error(request, 'You cannot do that!')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = WorkoutTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added a workout type!')
+            return redirect(reverse('home'))
+        else:
+            messages.error(
+                request, 'Failed to add a workout type. Please ensure the form is valid.')
+    else:
+        form = WorkoutTypeForm()
+
+    template = 'types/add_workouttype.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)

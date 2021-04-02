@@ -3,60 +3,84 @@
 
 {% block content %}
 <section class="container-fluid">
+    <div class="py-4">
 
-    <div class="row">
-        <div class="col-4">
-            {% if workout %}
-                <div class="card">
-                    {% if workout.image %}
-                        <img class="card-img-top" src="{{ workout.image.url }}" alt="{{ workout.name }}">
-                    {% else %}
-                        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ workout.name }}</h5>
-                        {% if request.user.is_superuser %}
-                            <div>
-                                <a href="{% url 'edit_workout' workout.id %}">Edit</a> 
-                            </div>
-                        {% endif %}
-                        {% if workout.category %}
-                            <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
-                                <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
-                            </a>
-                        {% endif %}
-                        {% if workout.workout_type %}
-                            <a href="{% url 'workouts' %}?workout_type={{ workout.workout_type.name }}">
-                                <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
-                            </a>
-                        {% endif %}
+        {% if workout %}
+        <div class="row">
+
+            <div class="col-12 col-lg-4 col-sm-6">
+                {% if workout.image %}
+                    <img class="img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                {% else %}
+                    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                {% endif %}
+            </div>
+
+            <div class="col-12 col-lg-4 col-sm-6">
+                <h5>{{ workout.name }}</h5>
+                
+                {% if request.user.is_superuser %}
+                    <div>
+                        <a href="{% url 'edit_workout' workout.id %}">Edit</a> 
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">{{ workout.description }}</li>
-                        <li class="list-group-item">{{ workout.get_difficulty_display }}</li>
-                        <li class="list-group-item">{{ workout.rating }} / 10</li>
-                        <li class="list-group-item">£ {{ workout.price }}</li>
-                    </ul>
-                    <div class="card-body">
-                       {% if workout.is_deleted == False %}
-                            <form class="form" action="{% url 'add_to_cart' workout.id %}" method="POST">
-                                {% csrf_token %}
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <input type="submit" class="btn btn-secondary text-uppercase" value="Add to Cart">
-                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                    </div>
+                {% endif %}
+                {% if workout.category %}
+                    <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
+                        <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
+                    </a>
+                {% endif %}
+                {% if workout.workout_type %}
+                    <a href="{% url 'workouts' %}?workout_type={{ workout.workout_type.name }}">
+                        <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
+                    </a>
+                {% endif %}
+
+                <p>{{ workout.description }}</p>
+                <p>{{ workout.get_difficulty_display }}</p>
+                <p>{{ workout.rating }} / 10</p>
+                <p>£ {{ workout.price }}</p>
+
+                {% if workout.id|stringformat:"i" not in cart_ids %}
+                    {% if workout.is_deleted == False %}
+                        <form class="form" action="{% url 'add_to_cart' workout.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-secondary text-uppercase" value="Add to Cart">
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                 </div>
-                            </form>
-                        {% else %}
-                            <button class="btn btn-secondary text-uppercase" disabled>Not available</button>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
+                            </div>
+                        </form>
+                    {% else %}
+                        <button class="btn btn-secondary text-uppercase" disabled>Not available</button>
+                    {% endif %}
+                {% else %}
+                    <button class="btn btn-secondary text-uppercase" disabled>Added</button>
+                {% endif %}
 
+            </div>
+
+            <div class="col-12 col-lg-4 col-sm-6">
+                <h5>Latest reviews</h5>
+                {% if reviews %}
+                    {% for review in reviews %}
+                        <strong><p>{{review.user}}</p></strong>
+                        <small><p>{{review.created_at}}</p></small>
+                        <p>{{review.title}}</p>
+                        <p>{{review.rating}}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No reviews available.</p>
+                {% endif %}
+                {% if user_can_review %}
+                    <a class="btn btn-secondary text-uppercase" href="{% url 'add_review' workout.id %}">Add Review</a>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
 </section>
 
 {% endblock %}

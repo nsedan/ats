@@ -5,13 +5,13 @@
 <header>
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-xl-6">
-            <div class="herotron p-4">
-                <img src="https://lh3.googleusercontent.com/proxy/49yy2ZJ9zQk4Nr6IJgSfvQmS_EhrbdwYmCdh2mZD4Hns1vmtlzKIYlD7j1Eg8Rgvx2Es8n1J0UfZ1xsaeVviw4LyQ07IliaN4wd1HfL1cHPNj7RNikfudjVd" alt="hero image" class="hero-img">
+            <div class="herotron p-4 my-5">
+                <img src="https://lh3.googleusercontent.com/proxy/49yy2ZJ9zQk4Nr6IJgSfvQmS_EhrbdwYmCdh2mZD4Hns1vmtlzKIYlD7j1Eg8Rgvx2Es8n1J0UfZ1xsaeVviw4LyQ07IliaN4wd1HfL1cHPNj7RNikfudjVd" alt="hero image" width="340px" class="hero-img">
                 <h1><span class="brand">A</span>ctive <span class="brand">T</span>raining <span class="brand">S</span>tudio</h1>
-                <p class="lead position-relative">Train, motivate, and connect.</p>
+                <p class="lead position-relative">Train, motivate, and repeat.</p>
                 <p></p>
                 <p class="lead my-4">
-                    <a class="btn btn-danger rounded-0 btn-lg" href="{% url 'workouts' %}" role="button">GET STARTED !</a>
+                    <a class="btn btn-danger rounded-0 btn-lg text-uppercase" href="{% url 'workouts' %}" role="button">Get Started !</a>
                 </p>
             </div>
         </div>
@@ -19,109 +19,37 @@
 </header>
 
 
-<section class="our-mission">
-    <div class="card-deck mt-4">
-        <div class="card bg-light mb-3">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Light card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
-            </div>
-        </div>
-        <div class="card text-white bg-dark mb-3">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Dark card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="call-to-action">
     <div class="jumbotron jumbotron-fluid bg-dark text-center position-relative">
         <div class="container">
-            <h4 class="text-light font-italic">"What seems impossible today will one day become your warm-up."</h4>
+            <h5 class="text-light font-italic">"What seems impossible today will become your warm-up tomorrow."</h5>
             <a class="lead text-danger font-weight-bold" href="{% url 'workouts' %}">
-                Start now! <i class="fas fa-chevron-right fa-xs"></i>
+                <span>Start now!</span> <i class="fas fa-chevron-right fa-xs"></i>
             </a>
         </div>
     </div>
 </section>
 
-<section class="about-us">
-    <div class="row">
-        <div class="col-6">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Success card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
+
+<section class="our-mission">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-xl-6">
+            <div class="row d-flex align-items-center">
+                <div class="col-6 text-right pr-5">
+                    <img src="https://lh3.googleusercontent.com/proxy/JNt1aCv7FUSxq2Iuluf8moIM2O1HuxKUWymA2KAXj933hJ1sZ8Ru3Mas4yDnB7Y7Zh0lDzlwvb7fFYJFzkjBgUE3CSfksI4X4KOj3mc7DAxEQu2WJTY8VJ-8B9jXJ1e9gRzFBxfZWZNgZ_A" width="200px" alt="">
+                </div>
+                <div class="col-6 border-left border-danger pl-5">
+                    <h4 class="text-danger">Embrace your potential</h4>
+                    <p>Tap into what you are truly capable of and train at your own pace. Anywhere, anytime.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content. This content is a little bit longer.</p>
+            <div class="row d-flex align-items-center">
+                <div class="col-6 text-right border-right border-danger pr-5">
+                    <h4 class="text-danger">Conquer your body</h4>
+                    <p>Choose from hundreds of workouts to build your own training program.</p>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-         <div class="col-6">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content. This content is a little bit longer.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Success card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">Header</div>
-                <div class="card-body">
-                    <h5 class="card-title">Success card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's
-                        content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-                        additional
-                        content. This content is a little bit longer.</p>
+                <div class="col-6 pl-5">
+                    <img src="https://lh3.googleusercontent.com/proxy/DrKt3YBlJB0GqrwwqfC2rczxCky4ArBCyMJzGt4KRkVsJOXqmVmuxdVH7NXVCPsZ4Hm8sk9YS6mVL2Y_I8itdVs7wvUtr94Oapv3cGsM__oDZAJkQwmhGUs" width="235px" alt="">
                 </div>
             </div>
         </div>

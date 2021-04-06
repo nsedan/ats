@@ -23,9 +23,9 @@
                     <tr>
                         <td class="p-3 w-25">
                             {% if workout.image %}
-                                <img class="img-thumbnail img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                                <img class="img-thumbnail rounded-0 img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
                             {% else %}
-                                <img class="img-thumbnail img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                                <img class="img-thumbnail rounded-0 img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
                             {% endif %}
                         </td>
                         <td class="py-3">
@@ -61,7 +61,7 @@
                     <legend class="fieldset-label">Payment</legend>
 
                     <!-- A Stripe card element will go here -->
-                    <div id="card-element"></div>
+                    <div id="card-element" class="mb-4 mt-2"></div>
                     <!-- Used to display form errors -->
                     <div class="text-danger" id="card-errors" role="alert"></div>
                     <!-- Pass the client secret to the view to get the payment intent id -->
@@ -70,11 +70,11 @@
                 </fieldset>
 
                 <div class="text-right">                    
-                    <a href="{% url 'view_cart' %}" class="btn btn-secondary">
+                    <a href="{% url 'view_cart' %}" class="btn btn-secondary rounded-0">
                         <i class="fas fa-chevron-left"></i>
                         <span class="text-uppercase">Adjust Cart</span>
                     </a>
-                    <button class="btn btn-secondary">
+                    <button class="btn btn-secondary rounded-0">
                         <span class="text-uppercase">Complete Order</span>
                     </button>
                 </div>

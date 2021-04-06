@@ -24,3 +24,5 @@ class UserProfileForm(forms.ModelForm):
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].label = False
+            for field_name, field in self.fields.items():
+                field.widget.attrs['class'] = 'rounded-0'

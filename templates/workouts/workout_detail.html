@@ -26,12 +26,12 @@
                 {% endif %}
                 {% if workout.category %}
                     <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
-                        <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
+                        <span class="badge badge-danger rounded-0">{{ workout.category.friendly_name }}</span>
                     </a>
                 {% endif %}
                 {% if workout.workout_type %}
                     <a href="{% url 'workouts' %}?workout_type={{ workout.workout_type.name }}">
-                        <span class="badge badge-secondary">{{ workout.workout_type.friendly_name }}</span>
+                        <span class="badge badge-secondary rounded-0">{{ workout.workout_type.friendly_name }}</span>
                     </a>
                 {% endif %}
 
@@ -46,16 +46,16 @@
                             {% csrf_token %}
                             <div class="form-row">
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-secondary text-uppercase" value="Add to Cart">
+                                    <input type="submit" class="btn btn-secondary rounded-0 text-uppercase" value="Add to Cart">
                                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                 </div>
                             </div>
                         </form>
                     {% else %}
-                        <button class="btn btn-secondary text-uppercase" disabled>Not available</button>
+                        <button class="btn btn-secondary rounded-0 text-uppercase" disabled>Not available</button>
                     {% endif %}
                 {% else %}
-                    <button class="btn btn-secondary text-uppercase" disabled>Added</button>
+                    <button class="btn btn-secondary rounded-0 text-uppercase" disabled>Added</button>
                 {% endif %}
 
             </div>
@@ -73,7 +73,7 @@
                     <p>No reviews available.</p>
                 {% endif %}
                 {% if user_can_review %}
-                    <a class="btn btn-secondary text-uppercase" href="{% url 'add_review' workout.id %}">Add Review</a>
+                    <a class="btn btn-secondary rounded-0 text-uppercase" href="{% url 'add_review' workout.id %}">Add Review</a>
                 {% endif %}
             </div>
 

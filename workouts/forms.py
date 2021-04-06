@@ -29,6 +29,8 @@ class WorkoutForm(forms.ModelForm):
 
         self.fields['category'].choices = friendly_categories
         self.fields['workout_type'].choices = friendly_types
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'rounded-0'
 
 
 class ReviewForm(forms.ModelForm):
@@ -43,6 +45,8 @@ class ReviewForm(forms.ModelForm):
         self.fields['workout'].widget = forms.HiddenInput()
         self.fields['rating'].widget.attrs['min'] = 0
         self.fields['rating'].widget.attrs['max'] = 10
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'rounded-0'
 
 
 class CategoryForm(forms.ModelForm):
@@ -54,6 +58,8 @@ class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget = forms.HiddenInput()
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'rounded-0'
 
 
 class WorkoutTypeForm(forms.ModelForm):
@@ -65,3 +71,5 @@ class WorkoutTypeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].widget = forms.HiddenInput()
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'rounded-0'

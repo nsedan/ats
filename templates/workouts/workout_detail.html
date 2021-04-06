@@ -26,7 +26,7 @@
                 {% endif %}
                 {% if workout.category %}
                     <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
-                        <span class="badge badge-danger">{{ workout.category.friendly_name }}</span>
+                        <span class="badge badge-danger rounded-0">{{ workout.category.friendly_name }}</span>
                     </a>
                 {% endif %}
                 {% if workout.workout_type %}

@@ -89,6 +89,7 @@ def all_workouts(request):
     return render(request, 'workouts/workouts.html', context)
 
 
+@login_required
 def workout_detail(request, workout_id):
     """ A view to return an specific workout """
 
@@ -96,14 +97,19 @@ def workout_detail(request, workout_id):
     reviews = Review.objects.all().filter(workout=workout_id)
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
+    user_can_review = False
 
     current_user = request.user.id
-    userobj = UserProfile.objects.get(id=current_user)
-    review = Review.objects.all().filter(workout=workout, user=userobj)
-    if review:
-        user_can_review = False
-    else:
-        user_can_review = True
+    try:
+        userobj = UserProfile.objects.get(user=current_user)
+    except UserProfile.DoesNotExist:
+        userobj = None
+
+    if userobj is not None:
+        # TODO: check if user has this workout
+        review = Review.objects.all().filter(workout=workout, user=userobj)
+        if not review:
+            user_can_review = True
 
     context = {
         'workout': workout,
@@ -192,15 +198,30 @@ def add_review(request, workout_id):
 
     workout = get_object_or_404(Workout, pk=workout_id)
     current_user = request.user.id
-    userobj = UserProfile.objects.get(id=current_user)
-    review = Review.objects.all().filter(workout=workout, user=userobj)
+    try:
+        userobj = UserProfile.objects.get(user=current_user)
+    except UserProfile.DoesNotExist:
+        userobj = None
+    if userobj is not None:
+        review = Review.objects.all().filter(workout=workout, user=userobj)
+    rating = workout.rating
+    num_reviews = len(Review.objects.all().filter(workout=workout))
+    print(rating)
 
     if not review:
         if request.method == 'POST':
-            form = ReviewForm(request.POST, initial={
-                "user": request.user, "workout": workout})
+            form = ReviewForm(request.POST)
             if form.is_valid():
                 form.save()
+                user_rating = form.cleaned_data['rating']
+                if num_reviews == 0:
+                    print(user_rating)
+                else:
+                    prev_acum_rating = rating * (num_reviews)
+                    new_acum_rating = prev_acum_rating + user_rating
+                    new_rating = new_acum_rating / (num_reviews+1)
+                    Workout.objects.filter(pk=workout.id).update(rating=new_rating)
+                
                 messages.success(request, 'Successfully added review!')
                 return redirect(reverse('workout_detail', args=[workout.id]))
             else:
@@ -208,7 +229,7 @@ def add_review(request, workout_id):
                     request, 'Failed to add review. Please ensure the form is valid.')
         else:
             form = ReviewForm(
-                initial={"user": request.user, "workout": workout})
+                initial={"user": userobj, "workout": workout})
     else:
         return redirect(reverse('workout_detail', args=[workout.id]))
 

@@ -206,7 +206,6 @@ def add_review(request, workout_id):
         review = Review.objects.all().filter(workout=workout, user=userobj)
     rating = workout.rating
     num_reviews = len(Review.objects.all().filter(workout=workout))
-    print(rating)
 
     if not review:
         if request.method == 'POST':
@@ -215,7 +214,7 @@ def add_review(request, workout_id):
                 form.save()
                 user_rating = form.cleaned_data['rating']
                 if num_reviews == 0:
-                    print(user_rating)
+                    Workout.objects.filter(pk=workout.id).update(rating=user_rating)
                 else:
                     prev_acum_rating = rating * (num_reviews)
                     new_acum_rating = prev_acum_rating + user_rating

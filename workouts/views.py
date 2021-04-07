@@ -7,7 +7,7 @@ from django.db.models.functions import Lower
 from .models import Workout, Category, WorkoutType, Review
 from .forms import WorkoutForm, ReviewForm, CategoryForm, WorkoutTypeForm
 from profiles.models import UserProfile
-from checkout.models import OrderLineItem
+from checkout.models import OrderLineItem, Order
 
 
 @login_required
@@ -98,6 +98,7 @@ def workout_detail(request, workout_id):
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
     user_can_review = False
+    user_can_buy = True
 
     current_user = request.user.id
     try:
@@ -106,7 +107,12 @@ def workout_detail(request, workout_id):
         userobj = None
 
     if userobj is not None:
-        # TODO: check if user has this workout
+        orders = Order.objects.all().filter(user_profile=userobj)
+        for order in orders:
+            order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
+            for o in list(order):
+                if workout_id == o:
+                    user_can_buy = False
         review = Review.objects.all().filter(workout=workout, user=userobj)
         if not review:
             user_can_review = True
@@ -117,6 +123,7 @@ def workout_detail(request, workout_id):
         'all_categories': all_categories,
         'all_types': all_types,
         'user_can_review': user_can_review,
+        'user_can_buy': user_can_buy
     }
 
     return render(request, 'workouts/workout_detail.html', context)

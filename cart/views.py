@@ -18,9 +18,9 @@ def add_to_cart(request, item_id):
     orders = profile.orders.all()
     user_workouts = []
     for order in orders:
-        order = get_object_or_404(OrderLineItem, order=order)
-        item = order.workout.id
-        user_workouts.append(str(item))
+        order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
+        for o in list(order):
+            user_workouts.append(str(o))
 
     redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', [])

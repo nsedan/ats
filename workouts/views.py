@@ -102,18 +102,18 @@ def workout_detail(request, workout_id):
 
     current_user = request.user.id
     try:
-        userobj = UserProfile.objects.get(user=current_user)
+        profile = UserProfile.objects.get(user=current_user)
     except UserProfile.DoesNotExist:
-        userobj = None
+        profile = None
 
-    if userobj is not None:
-        orders = Order.objects.all().filter(user_profile=userobj)
+    if profile is not None:
+        orders = Order.objects.all().filter(user_profile=profile)
         for order in orders:
             order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
             for o in list(order):
                 if workout_id == o:
                     user_can_buy = False
-        review = Review.objects.all().filter(workout=workout, user=userobj)
+        review = Review.objects.all().filter(workout=workout, user=profile)
         if not review:
             user_can_review = True
 
@@ -206,11 +206,11 @@ def add_review(request, workout_id):
     workout = get_object_or_404(Workout, pk=workout_id)
     current_user = request.user.id
     try:
-        userobj = UserProfile.objects.get(user=current_user)
+        profile = UserProfile.objects.get(user=current_user)
     except UserProfile.DoesNotExist:
-        userobj = None
-    if userobj is not None:
-        review = Review.objects.all().filter(workout=workout, user=userobj)
+        profile = None
+    if profile is not None:
+        review = Review.objects.all().filter(workout=workout, user=profile)
     rating = workout.rating
     num_reviews = len(Review.objects.all().filter(workout=workout))
 
@@ -227,7 +227,7 @@ def add_review(request, workout_id):
                     new_acum_rating = prev_acum_rating + user_rating
                     new_rating = new_acum_rating / (num_reviews+1)
                     Workout.objects.filter(pk=workout.id).update(rating=new_rating)
-                
+
                 messages.success(request, 'Successfully added review!')
                 return redirect(reverse('workout_detail', args=[workout.id]))
             else:
@@ -235,7 +235,7 @@ def add_review(request, workout_id):
                     request, 'Failed to add review. Please ensure the form is valid.')
         else:
             form = ReviewForm(
-                initial={"user": userobj, "workout": workout})
+                initial={"user": profile, "workout": workout})
     else:
         return redirect(reverse('workout_detail', args=[workout.id]))
 

@@ -25,6 +25,12 @@ def all_workouts(request):
     sort = None
     direction = None
 
+    user_workouts = []
+    for order in orders:
+        order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
+        for o in list(order):
+            user_workouts.append(str(o))
+
     if not request.user.is_superuser:
         for order in orders:
             order = get_object_or_404(OrderLineItem, order=order)
@@ -84,6 +90,7 @@ def all_workouts(request):
         'all_types': all_types,
         'current_types': current_types,
         'current_sorting': current_sorting,
+        'user_workouts': user_workouts,
     }
 
     return render(request, 'workouts/workouts.html', context)

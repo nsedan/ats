@@ -29,7 +29,6 @@ def add_to_cart(request, item_id):
         if item_id not in list(cart):
             cart.append(item_id)
         # else:
-            # TODO: disable add to cart botton on frontend
             # message - item already in cart
     # else:
         # message - item already purchased

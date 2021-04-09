@@ -122,7 +122,8 @@ def workout_detail(request, workout_id):
                     user_can_buy = False
         review = Review.objects.all().filter(workout=workout, user=profile)
         if not review:
-            user_can_review = True
+            if not user_can_buy:
+                user_can_review = True
 
     context = {
         'workout': workout,

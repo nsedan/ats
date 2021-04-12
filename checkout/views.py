@@ -101,8 +101,8 @@ def checkout(request):
                 })
             except UserProfile.DoesNotExist:
                 order_form = OrderForm()
-        # else:
-            # Handle if an unauthenticated user sees this page.
+        else:
+            return redirect(reverse('login'))
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \

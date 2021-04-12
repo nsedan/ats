@@ -37,7 +37,7 @@
 
                 <p>{{ workout.description }}</p>
                 <p>{{ workout.get_difficulty_display }}</p>
-                <p>{{ workout.rating }} / 10</p>
+                <p>{{ workout.rating }} / 5</p>
                 <p>£ {{ workout.price }}</p>
 
                 {% if workout.id|stringformat:"i" not in cart_ids %}

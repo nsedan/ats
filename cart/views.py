@@ -21,7 +21,8 @@ def add_to_cart(request, item_id):
     orders = profile.orders.all()
     user_workouts = []
     for order in orders:
-        order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
+        order = OrderLineItem.objects.all().filter(
+            order=order).values_list('workout', flat=True)
         for o in list(order):
             user_workouts.append(str(o))
 
@@ -31,11 +32,13 @@ def add_to_cart(request, item_id):
     if item_id not in list(user_workouts):
         if item_id not in list(cart):
             cart.append(item_id)
-            messages.success(request, f'Added "{workout.name}"" to your cart')
-        # else:
-            # message - item already in cart
-    # else:
-        # message - item already purchased
+            messages.success(request, f'Added "{workout.name}" to your cart')
+        else:
+            messages.error(
+                request, f'"{workout.name}" is already in your cart')
+    else:
+        messages.error(
+            request, f'"{workout.name}" is already purchased')
 
     request.session['cart'] = cart
     return redirect(redirect_url)

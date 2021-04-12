@@ -35,7 +35,7 @@ $('.remove-item').click(function (e) {
 
 
 // Review system
-$('#id_rating').hide()
+$('#div_id_rating').hide()
 $('#1rat').on('click', function(){
     $('.fa-dumbbell').removeClass('checked')
     $(this).addClass('checked')

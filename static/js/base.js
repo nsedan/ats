@@ -32,3 +32,42 @@ $('.remove-item').click(function (e) {
             location.reload();
         });
 })
+
+
+// Review system
+$('#id_rating').hide()
+$('#1rat').on('click', function(){
+    $('.fa-dumbbell').removeClass('checked')
+    $(this).addClass('checked')
+    $('#id_rating').val('1')
+})
+$('#2rat').on('click', function(){
+    $('.fa-dumbbell').removeClass('checked')
+    $(this).addClass('checked')
+    $('#1rat').addClass('checked')
+    $('#id_rating').val('2')
+})
+$('#3rat').on('click', function(){
+    $('.fa-dumbbell').removeClass('checked')
+    $(this).addClass('checked')
+    $('#1rat').addClass('checked')
+    $('#2rat').addClass('checked')
+    $('#id_rating').val('3')
+})
+$('#4rat').on('click', function(){
+    $('.fa-dumbbell').removeClass('checked')
+    $(this).addClass('checked')
+    $('#1rat').addClass('checked')
+    $('#2rat').addClass('checked')
+    $('#3rat').addClass('checked')
+    $('#id_rating').val('4')
+})
+$('#5rat').on('click', function(){
+    $('.fa-dumbbell').removeClass('checked')
+    $(this).addClass('checked')
+    $('#1rat').addClass('checked')
+    $('#2rat').addClass('checked')
+    $('#3rat').addClass('checked')
+    $('#4rat').addClass('checked')
+    $('#id_rating').val('5')
+})

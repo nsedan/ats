@@ -49,7 +49,21 @@
     {% include "inc/navbar.html" %}
 
     {% if messages %}
-    <div class="message-container"></div>
+        <div class="message-container">
+            {% for message in messages %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                        {% include 'inc/messages/message_error.html' %}
+                    {% elif level == 30 %}
+                        {% include 'inc/messages/message_warning.html' %}
+                    {% elif level == 25 %}
+                        {% include 'inc/messages/message_success.html' %}
+                    {% else %}
+                        {% include 'inc/messages/message_info.html' %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
     {% endif %}
 
     {% block page_header %}
@@ -63,6 +77,11 @@
 
     {% block postloadjs %}
     <script src="{% static 'js/base.js' %}"></script>
+    <script type="text/javascript">
+        $('.close').on('click', function(){
+            $('.custom-toast').hide()
+        });
+    </script>
     {% endblock %}
 
 </body>

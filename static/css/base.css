@@ -24,6 +24,16 @@ a:hover{
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    left: 15rem;
+    left: -3rem;
     right: 0;
+}
+
+.message-container {
+    position: fixed;
+    right: 20px;
+    z-index: 99999999999;
+}
+
+.checked{
+    color: #dc3545;
 }

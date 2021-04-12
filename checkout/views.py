@@ -101,8 +101,8 @@ def checkout(request):
                 })
             except UserProfile.DoesNotExist:
                 order_form = OrderForm()
-        # else:
-            # Handle if an unauthenticated user sees this page.
+        else:
+            return redirect(reverse('login'))
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
@@ -127,9 +127,7 @@ def checkout_success(request, order_number):
         order.user_profile = profile
         order.save()
 
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
+    messages.success(request, 'Order successfully processed!')
 
     if 'cart' in request.session:
         del request.session['cart']

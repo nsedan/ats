@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
+from workouts.models import Workout
 from profiles.models import UserProfile
 from checkout.models import OrderLineItem
 
@@ -14,6 +16,7 @@ def view_cart(request):
 def add_to_cart(request, item_id):
     """ Add a workout to the shopping cart """
 
+    workout = get_object_or_404(Workout, pk=item_id)
     profile = get_object_or_404(UserProfile, user=request.user)
     orders = profile.orders.all()
     user_workouts = []
@@ -28,6 +31,7 @@ def add_to_cart(request, item_id):
     if item_id not in list(user_workouts):
         if item_id not in list(cart):
             cart.append(item_id)
+            messages.success(request, f'Added "{workout.name}"" to your cart')
         # else:
             # message - item already in cart
     # else:

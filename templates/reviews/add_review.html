@@ -19,6 +19,11 @@
                     {% for field in form %}
                         {{ field | as_crispy_field }}
                     {% endfor %}
+                    <span><i id="1rat" class="fas fa-dumbbell fa-lg"></i></span>
+                    <span><i id="2rat" class="fas fa-dumbbell fa-lg"></i></span>
+                    <span><i id="3rat" class="fas fa-dumbbell fa-lg"></i></span>
+                    <span><i id="4rat" class="fas fa-dumbbell fa-lg"></i></span>
+                    <span><i id="5rat" class="fas fa-dumbbell fa-lg"></i></span>
                     <div class="text-right">
                         <a class="btn btn-secondary rounded-0" href="{% url 'workout_detail' workout.id %}">Cancel</a>
                         <button class="btn btn-secondary rounded-0" type="submit">Add Review</button>

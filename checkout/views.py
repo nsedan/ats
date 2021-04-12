@@ -127,9 +127,7 @@ def checkout_success(request, order_number):
         order.user_profile = profile
         order.save()
 
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
+    messages.success(request, 'Order successfully processed!')
 
     if 'cart' in request.session:
         del request.session['cart']

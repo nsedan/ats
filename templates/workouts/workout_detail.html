@@ -35,10 +35,43 @@
                     </a>
                 {% endif %}
 
-                <p>{{ workout.description }}</p>
-                <p>{{ workout.get_difficulty_display }}</p>
-                <p>{{ workout.rating }} / 5</p>
-                <p>£ {{ workout.price }}</p>
+                <p class="text-break text-justify mt-3">{{ workout.description }}</p>
+                {% if workout.get_difficulty_display == 'Light' %}
+                    <p class="text-muted"><i class="fas fa-dumbbell"></i></p>
+                {% elif workout.get_difficulty_display == 'Easy' %}
+                    <p class="text-muted">
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                    </p>
+                {% elif workout.get_difficulty_display == 'Medium' %}
+                    <p class="text-muted">
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                    </p>
+                {% elif workout.get_difficulty_display == 'Hard' %}
+                    <p class="text-muted">
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                    </p>
+                {% elif workout.get_difficulty_display == 'Advanced' %}
+                    <p class="text-muted">
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                        <i class="fas fa-dumbbell"></i>
+                    </p>
+                {% endif %}
+                <p class="text-muted">
+                    {% for i in workout.rating|ljust:workout.rating %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                </p>
+                <p class="font-weight-bold h4">£ {{ workout.price }}</p>
+                
 
                 {% if workout.id|stringformat:"i" not in cart_ids %}
                     {% if workout.is_deleted == False %}

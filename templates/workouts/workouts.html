@@ -76,9 +76,35 @@
                             {% endif %}
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item py-1">{{ workout.get_difficulty_display  }}</li>
-                            <li class="list-group-item py-1">{{ workout.rating }} / 5</li>
-                            <li class="list-group-item py-1">£ {{ workout.price }}</li>
+                            <li class="list-group-item py-1 text-muted">
+                                {% if workout.get_difficulty_display == 'Light' %}
+                                    <i class="fas fa-dumbbell"></i>
+                                {% elif workout.get_difficulty_display == 'Easy' %}
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                {% elif workout.get_difficulty_display == 'Medium' %}
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                {% elif workout.get_difficulty_display == 'Hard' %}
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                {% elif workout.get_difficulty_display == 'Advanced' %}
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                    <i class="fas fa-dumbbell"></i>
+                                {% endif %}
+                            </li>
+                            <li class="list-group-item py-1 text-muted">
+                                {% for i in workout.rating|ljust:workout.rating %}
+                                    <i class="fas fa-star"></i>
+                                {% endfor %}
+                            </li>
+                            <li class="list-group-item font-weight-bold h5 py-1">£ {{ workout.price }}</li>
                         </ul>
                         <div class="card-body py-2">
                             {% if workout.id|stringformat:"i" not in cart_ids %}
@@ -109,7 +135,7 @@
                     <div class="col-12 d-sm-none">
                         <hr>
                     </div>
-                {% endif %}                        
+                {% endif %}
                 {% if forloop.counter|divisibleby:2 %}
                     <div class="col-12 d-none d-sm-block d-md-block d-lg-none">
                         <hr>
@@ -154,9 +180,31 @@
                                 {% endif %}
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item py-1">{{ workout.difficulty }}</li>
+                                <li class="list-group-item py-1">
+                                    {% if workout.difficulty == 'Light' %}
+                                        <i class="fas fa-dumbbell"></i>
+                                    {% elif workout.difficulty == 'Easy' %}
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                    {% elif workout.difficulty == 'Medium' %}
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                    {% elif workout.difficulty == 'Hard' %}
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                    {% elif workout.difficulty == 'Advanced' %}
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                        <i class="fas fa-dumbbell"></i>
+                                    {% endif %}
+                                </li>
                                 <li class="list-group-item py-1">{{ workout.rating }} / 5</li>
-                                <li class="list-group-item py-1">£ {{ workout.price }}</li>
+                                <li class="list-group-item font-weight-bold h5 py-1">£ {{ workout.price }}</li>
                             </ul>
                             <div class="card-body py-2">
                                 {% if workout.id|stringformat:"i" not in cart_ids %}
@@ -179,7 +227,7 @@
                         <div class="col-12 d-sm-none">
                             <hr>
                         </div>
-                    {% endif %}                        
+                    {% endif %}
                     {% if forloop.counter|divisibleby:2 %}
                         <div class="col-12 d-none d-sm-block d-md-block d-lg-none">
                             <hr>

@@ -77,3 +77,7 @@ $('.nav-link').on('click', function(){
     $('.nav-link').removeClass('checked')
     $(this).addClass('checked')
 })
+
+// Hide unnecesary labels
+$("label[for='id_friendly_name']").hide()
+$("label[for='id_title']").hide()

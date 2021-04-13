@@ -4,7 +4,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 mt-4">
                 <hr>
                 <h2 class="logo-font">{{workout.name}}</h2>
                 <h5 class="text-muted">Add a Review</h5>
@@ -13,17 +13,17 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 mb-5">
                 <form method="POST" action="{% url 'add_review' workout.id %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                         {{ field | as_crispy_field }}
                     {% endfor %}
-                    <span><i id="1rat" class="fas fa-dumbbell fa-lg"></i></span>
-                    <span><i id="2rat" class="fas fa-dumbbell fa-lg"></i></span>
-                    <span><i id="3rat" class="fas fa-dumbbell fa-lg"></i></span>
-                    <span><i id="4rat" class="fas fa-dumbbell fa-lg"></i></span>
-                    <span><i id="5rat" class="fas fa-dumbbell fa-lg"></i></span>
+                    <span><i id="1rat" class="fas fa-dumbbell pointer fa-lg"></i></span>
+                    <span><i id="2rat" class="fas fa-dumbbell pointer fa-lg"></i></span>
+                    <span><i id="3rat" class="fas fa-dumbbell pointer fa-lg"></i></span>
+                    <span><i id="4rat" class="fas fa-dumbbell pointer fa-lg"></i></span>
+                    <span><i id="5rat" class="fas fa-dumbbell pointer fa-lg"></i></span>
                     <div class="text-right">
                         <a class="btn btn-secondary rounded-0" href="{% url 'workout_detail' workout.id %}">Cancel</a>
                         <button class="btn btn-secondary rounded-0" type="submit">Add Review</button>

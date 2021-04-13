@@ -10,7 +10,8 @@
                 {% if request.user.is_superuser %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-cog fa-lg"></i>
+                        <span class="text-uppercase">Admin</span>
+                        <i class="fas fa-cog"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="adminDropdown">
                         <a class="dropdown-item" href="{% url 'add_workout' %}">Add Workout</a>
@@ -21,27 +22,31 @@
                 {% endif %} 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'workouts' %}">
-                    <i class="fas fa-dumbbell fa-lg"></i>
+                    <span class="text-uppercase">Workouts</span>
+                    <i class="fas fa-dumbbell"></i>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'view_cart' %}">
-                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <span class="text-uppercase">Cart</span>
+                    <i class="fas fa-shopping-cart"></i>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' %}">
-                    <i class="fas fa-user-circle fa-lg"></i>
+                    <span class="text-uppercase">Profile</span>
+                    <i class="fas fa-user-circle"></i>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'account_logout' %}">
-                    <i class="fas fa-sign-out-alt fa-lg"></i>
+                    <span class="text-uppercase">Logout</span>
+                    <i class="fas fa-sign-out-alt"></i>
                 </a>
             </li>
             {% else %}
             <li class="nav-item">
-                <a class="nav-link text-uppercase" href="{% url 'account_login' %}">Log in</a>
+                <a class="nav-link text-uppercase" href="{% url 'account_login' %}">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-uppercase" href="{% url 'account_signup' %}">Register</a>

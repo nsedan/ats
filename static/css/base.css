@@ -1,57 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Train+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Train+One&display=swap");
 
-.brand{
-    font-family: 'Train One', 'Arial';
-    font-weight: bold;
-    color: #dc3545 !important;
-    font-size: 2rem;
+.brand {
+  font-family: "Train One", "Arial";
+  font-weight: bold;
+  color: #dc3545 !important;
+  font-size: 2rem;
 }
 
-a{
-    color: inherit;
+a {
+  color: inherit;
 }
 
-a:hover{
-    color: grey;
-    text-decoration: none;
+a:hover {
+  color: grey;
+  text-decoration: none;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.hero-img{
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: -3rem;
-    right: 0;
-    top: -25px;
+.hero-img {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: -3rem;
+  right: 0;
+  top: -60px;
 }
 
 .message-container {
-    position: fixed;
-    right: 20px;
-    z-index: 99999999999;
+  position: fixed;
+  right: 20px;
+  z-index: 99999999999;
 }
 
-.checked{
-    color: #dc3545!important;
+.checked {
+  color: #dc3545 !important;
 }
 
 .nav-tabs {
-    border-bottom: 1px solid #dc3545;
+  border-bottom: 1px solid #dc3545;
 }
 
 .nav-tabs .nav-link.active {
-    background-color: inherit;
-    border-color: #dc3545 #dc3545 #fff;
+  background-color: inherit;
+  border-color: #dc3545 #dc3545 #fff;
 }
 
 .table thead th {
-    border-bottom: none;
+  border-bottom: none;
 }
 
-.table td, .table th {
-    border-top: none;
+.table td,
+.table th {
+  border-top: none;
+}
+
+
+/* 
+* Media Queries
+*/
+@media (min-width: 1400px) {
+  header {
+    height: 30vw;
+  }
 }

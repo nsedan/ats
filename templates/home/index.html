@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<header>
+<header class="mt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-xl-6">
             <div class="row p-4 my-5">
@@ -15,7 +15,7 @@
                     </p>
                 </div>
                 <div class="d-none d-md-block col-md-4">
-                    <img src="https://active-training-studio.s3.eu-west-2.amazonaws.com/media/man%2Bwoman%2Bbodybuilding.png" alt="hero image" class="hero-img">
+                    <img src="{{ MEDIA_URL }}man%2Bwoman%2Bbodybuilding.png" alt="hero image" class="hero-img">
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="col-12 col-md-8 col-xl-6">
             <div class="row d-flex align-items-center mt-2">
                 <div class="col-12 col-md-6 text-right pr-5">
-                    <img src="" width="200px" alt="potential image">
+                    <img src="{{ MEDIA_URL }}woman1.png" width="300px" alt="potential image">
                 </div>
                 <div class="col-12 col-md-6 border-left border-danger pl-5">
                     <h4 class="text-danger">Embrace your potential</h4>
@@ -53,7 +53,7 @@
                     <p>Choose from hundreds of workouts to build your own training program.</p>
                 </div>
                 <div class="col-12 col-md-6 pl-5">
-                    <img src="" width="235px" alt="body image">
+                    <img src="{{ MEDIA_URL }}woman2.png" width="300px" alt="body image">
                 </div>
             </div>
         </div>

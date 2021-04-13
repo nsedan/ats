@@ -57,6 +57,24 @@ a:hover {
   border-top: none;
 }
 
+.difficulty{
+  position: absolute;
+  top: 10px;
+  background: transparent;
+  border: none;
+}
+
+.rating{
+  position: absolute;
+  top: 40px;
+  background: transparent;
+  border: none;
+}
+
+.badge{
+  font-size: 0.8rem;
+}
+
 /* 
 * Media Queries
 */

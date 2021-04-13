@@ -26,6 +26,7 @@ a:hover{
     margin-right: auto;
     left: -3rem;
     right: 0;
+    top: -25px;
 }
 
 .message-container {
@@ -35,5 +36,22 @@ a:hover{
 }
 
 .checked{
-    color: #dc3545;
+    color: #dc3545!important;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #dc3545;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: inherit;
+    border-color: #dc3545 #dc3545 #fff;
+}
+
+.table thead th {
+    border-bottom: none;
+}
+
+.table td, .table th {
+    border-top: none;
 }

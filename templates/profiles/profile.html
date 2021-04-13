@@ -7,30 +7,31 @@
 
     <div class="row">
         <div class="col">
-            <h2 class="logo-font mb-4">My Profile</h2>
+            <h2 class="logo-font my-5">My Profile</h2>
         </div>
     </div>
 
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-link active" id="nav-workouts-tab" data-toggle="tab" href="#nav-workouts" role="tab"
+            <a class="nav-link rounded-0 active checked" id="nav-workouts-tab" data-toggle="tab" href="#nav-workouts" role="tab"
                 aria-controls="nav-workouts" aria-selected="true">Workouts</a>
-            <a class="nav-link" id="nav-billing-tab" data-toggle="tab" href="#nav-billing" role="tab"
+            <a class="nav-link rounded-0" id="nav-billing-tab" data-toggle="tab" href="#nav-billing" role="tab"
                 aria-controls="nav-billing" aria-selected="false">Billing</a>
-            <a class="nav-link" id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab"
+            <a class="nav-link rounded-0" id="nav-orders-tab" data-toggle="tab" href="#nav-orders" role="tab"
                 aria-controls="nav-orders" aria-selected="false">Orders</a>
         </div>
     </nav>
 
-    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-content my-4 mb-5" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-workouts" role="tabpanel" aria-labelledby="nav-workouts-tab">
             {% for order in orders %}
                 {% for item in order.lineitems.all %}
-                <a href="{% url 'workout_detail' item.workout.id %}">
+                <a class="px-4" href="{% url 'workout_detail' item.workout.id %}">
                     {% if item.workout.image %}
-                    <img width="96" height="96" class="rounded shadow-sm" src="{{ item.workout.image.url }}">
+                        <img width="96" height="96" class="rounded shadow-sm" src="{{ item.workout.image.url }}">
+                    {% else %}
+                        <span>{{ item.workout.name }}</span>
                     {% endif %}
-                    <p>{{ item.workout.name }}</p>
                 </a>
                 {% endfor %}
             {% endfor %}
@@ -67,9 +68,7 @@
                             <td>
                                 <ul class="list-unstyled">
                                     {% for item in order.lineitems.all %}
-                                    <li class="small">
-                                        {{ item.workout.name }}
-                                    </li>
+                                        <li>{{ item.workout.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </td>

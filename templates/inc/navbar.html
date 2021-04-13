@@ -7,33 +7,33 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog fa-lg"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                        <a class="dropdown-item" href="{% url 'add_workout' %}">Add Workout</a>
+                        <a class="dropdown-item" href="{% url 'add_category' %}">Add Category</a>
+                        <a class="dropdown-item" href="{% url 'add_workouttype' %}">Add Type</a>
+                    </div>
+                </li>
+                {% endif %} 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'workouts' %}">
                     <i class="fas fa-dumbbell fa-lg"></i>
                 </a>
             </li>
-            <li class="list-inline-item">
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'view_cart' %}">
                     <i class="fas fa-shopping-cart fa-lg"></i>
                 </a>
             </li>
-            <li class="list-inline-item">
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'profile' %}">
                     <i class="fas fa-user-circle fa-lg"></i>
                 </a>
             </li>
-            {% if request.user.is_superuser %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-cog fa-lg"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                    <a class="dropdown-item" href="{% url 'add_workout' %}">Add Workout</a>
-                    <a class="dropdown-item" href="{% url 'add_category' %}">Add Category</a>
-                    <a class="dropdown-item" href="{% url 'add_workouttype' %}">Add Type</a>
-                </div>
-            </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'account_logout' %}">
                     <i class="fas fa-sign-out-alt fa-lg"></i>

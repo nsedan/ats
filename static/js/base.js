@@ -71,3 +71,9 @@ $('#5rat').on('click', function(){
     $('#4rat').addClass('checked')
     $('#id_rating').val('5')
 })
+
+// Profile nav links red when active
+$('.nav-link').on('click', function(){
+    $('.nav-link').removeClass('checked')
+    $(this).addClass('checked')
+})

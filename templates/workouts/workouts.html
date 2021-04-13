@@ -50,20 +50,22 @@
             {% if request.user.is_superuser %}
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                     <div class="card rounded-0">
-                        {% if workout.image %}
-                        <a href="{% url 'workout_detail' workout.id %}">
-                            <img class="card-img-top img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
-                        </a>
-                        {% else %}
-                        <a href="{% url 'workout_detail' workout.id %}">
-                            <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
-                        </a>
-                        {% endif %}
+                        <div class="image-div">
+                            {% if workout.image %}
+                            <a href="{% url 'workout_detail' workout.id %}">
+                                <img class="card-img-top img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                            </a>
+                            {% else %}
+                            <a href="{% url 'workout_detail' workout.id %}">
+                                <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                            </a>
+                            {% endif %}
+                            <span class="text-muted position-absolute" style="top: 7px;right: 10px;">
+                                <a href="{% url 'edit_workout' workout.id %}"><i class="fas fa-pencil-alt fa-lg"></i></a> 
+                            </span>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ workout.name }}</h5>
-                            <div>
-                                <a href="{% url 'edit_workout' workout.id %}">Edit</a> 
-                            </div>
+                            <h5>{{ workout.name }}</h5>
                             {% if workout.category %}
                                 <a href="{% url 'workouts' %}?category={{ workout.category.name }}">
                                     <span class="badge badge-danger rounded-0">{{ workout.category.friendly_name }}</span>

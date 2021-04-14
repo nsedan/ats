@@ -57,14 +57,17 @@ All contributions are welcomed and encouraged.
 
 ## Deployment
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
+To deploy this application on Heroku using GitHub follow this instruction:
 
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
+- Clone the repository.
+- Install the necessary dependencies using "pip3 install -r requirments.txt".
+- Create a [Stripe](https://stripe.com/) account and follow their [documentation](https://stripe.com/docs/checkout/integration-builder) to get your environment variables for later.
+- Create a file in the main directory called ‘env.py’ based on the ‘env.example.py’ and add all your environment variables. Don’t forget to add a secret key for your app.
+- Create a [Heroku](https://www.heroku.com/) app and connect it to your GitHub repo. In Heroku (App > Settings > GitHub) to complete the connection. And choose Postgress for the DB.
+- Add your environment variables on Heroku as well, on the “Config Vars” section. When adding the DEBUG key, leave the value empty to set it to False.
+- Complete a commit, push it to GitHub and using ‘git push heroku master’ command push it to Heroku.
 
-In addition, if it is not obvious, you should also describe how to run your code locally.
+Using AWS to store static an media files is encouraged, a tutorial can be found here: [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html)
 
 
 ## Credits

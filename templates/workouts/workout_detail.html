@@ -8,15 +8,15 @@
         {% if workout %}
         <div class="row">
 
-            <div class="col-12 col-lg-4 col-sm-6">
+            <div class="col-12 col-lg-4 col-sm-6 my-3">
                 {% if workout.image %}
-                    <img class="img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
+                    <img class="img-fluid" width="100%" src="{{ workout.image.url }}" alt="{{ workout.name }}">
                 {% else %}
-                    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                    <img class="img-fluid" width="100%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
                 {% endif %}
             </div>
 
-            <div class="col-12 col-lg-4 col-sm-6">
+            <div class="col-12 col-lg-4 col-sm-6 my-3">
                 <h5>{{ workout.name }}
                     {% if request.user.is_superuser %}
                         <span class="text-muted">
@@ -95,14 +95,18 @@
 
             </div>
 
-            <div class="col-12 col-lg-4 col-sm-6">
+            <div class="col-12 col-lg-4 col-sm-6 my-3">
                 <h5>Latest reviews</h5>
                 {% if reviews %}
                     {% for review in reviews %}
-                        <strong><p>{{review.user}}</p></strong>
-                        <small><p>{{review.created_at}}</p></small>
-                        <p>{{review.title}}</p>
-                        <p>{{review.rating}}</p>
+                        <strong><p class="mb-1"
+                            >{{review.user}}&nbsp;&nbsp;<small>{{review.created_at}}</small></p></strong>
+                        <p class="mb-1">{{review.title}}</p>
+                        <p class="text-muted">
+                            {% for i in review.rating|ljust:review.rating %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                        </p>
                     {% endfor %}
                 {% else %}
                     <p>No reviews available.</p>

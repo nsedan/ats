@@ -5,7 +5,6 @@ from django.conf import settings
 
 from .models import Order, OrderLineItem
 from workouts.models import Workout
-from profiles.models import UserProfile
 
 import json
 import time
@@ -72,14 +71,14 @@ class StripeWH_Handler:
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=(f'Webhook received: {event["type"]} '
+                         '| SUCCESS: Verified order already in database'),
                 status=200)
         else:
             order = None
             try:
                 order = Order.objects.create(
                     full_name=billing_details.name,
-                    user_profile=profile,
                     email=billing_details.email,
                     country=billing_details.address.country,
                     town_or_city=billing_details.address.city,
@@ -103,7 +102,8 @@ class StripeWH_Handler:
 
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=(f'Webhook received: {event["type"]} '
+                     '| SUCCESS: Created order in webhook'),
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):

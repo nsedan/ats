@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block content %}
-<section class="container">
+<section class="container-fluid">
     <div class="row">
 
-        <div class="col-12 m-5">
+        <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2">
             {% if cart_items %}
                 <table class="table table-sm mt-4">
                     <thead class="thead-dark">
@@ -23,7 +23,7 @@
                                     {% if workout.image %}
                                         <img class="img-thumbnail rounded-0 img-fluid" src="{{ workout.image.url }}" alt="{{ workout.name }}">
                                     {% else %}
-                                        <img class="img-thumbnail rounded-0 img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
+                                        <img class="img-thumbnail rounded-0 img-fluid" width="200px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_13ebLeTd0rsVIplte6zH-EEqleIiGuw6A&usqp=CAU" alt="{{ workout.name }}">
                                     {% endif %}
                                 </td>
                                 <td class="py-3">

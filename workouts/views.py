@@ -27,7 +27,8 @@ def all_workouts(request):
 
     user_workouts = []
     for order in orders:
-        order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
+        order = OrderLineItem.objects.all().filter(
+            order=order).values_list('workout', flat=True)
         for o in list(order):
             user_workouts.append(str(o))
 
@@ -101,7 +102,8 @@ def workout_detail(request, workout_id):
     """ A view to return an specific workout """
 
     workout = get_object_or_404(Workout, pk=workout_id)
-    reviews = Review.objects.all().filter(workout=workout_id)
+    lastest_reviews = Review.objects.all().reverse().filter(
+        workout=workout_id).order_by('created_at')[:3]
     all_categories = Category.objects.all()
     all_types = WorkoutType.objects.all()
     user_can_review = False
@@ -116,7 +118,8 @@ def workout_detail(request, workout_id):
     if profile is not None:
         orders = Order.objects.all().filter(user_profile=profile)
         for order in orders:
-            order = OrderLineItem.objects.all().filter(order=order).values_list('workout', flat=True)
+            order = OrderLineItem.objects.all().filter(
+                order=order).values_list('workout', flat=True)
             for o in list(order):
                 if workout_id == o:
                     user_can_buy = False
@@ -127,7 +130,7 @@ def workout_detail(request, workout_id):
 
     context = {
         'workout': workout,
-        'reviews': reviews,
+        'reviews': lastest_reviews,
         'all_categories': all_categories,
         'all_types': all_types,
         'user_can_review': user_can_review,
@@ -152,7 +155,8 @@ def add_workout(request):
             return redirect(reverse('workout_detail', args=[workout.id]))
         else:
             messages.error(
-                request, 'Failed to add workout. Please ensure the form is valid.')
+                request, ('Failed to add workout. '
+                          'Please ensure the form is valid.'))
     else:
         form = WorkoutForm()
 
@@ -179,7 +183,8 @@ def edit_workout(request, workout_id):
             return redirect(reverse('workout_detail', args=[workout.id]))
         else:
             messages.error(
-                request, 'Failed to update workout. Please ensure the form is valid.')
+                request, ('Failed to update workout. '
+                          'Please ensure the form is valid.'))
     else:
         form = WorkoutForm(instance=workout)
         messages.info(request, f'You are editing {workout.name}')
@@ -229,18 +234,21 @@ def add_review(request, workout_id):
                 form.save()
                 user_rating = form.cleaned_data['rating']
                 if num_reviews == 0:
-                    Workout.objects.filter(pk=workout.id).update(rating=user_rating)
+                    Workout.objects.filter(
+                        pk=workout.id).update(rating=user_rating)
                 else:
                     prev_acum_rating = rating * (num_reviews)
                     new_acum_rating = prev_acum_rating + user_rating
                     new_rating = new_acum_rating / (num_reviews+1)
-                    Workout.objects.filter(pk=workout.id).update(rating=new_rating)
+                    Workout.objects.filter(
+                        pk=workout.id).update(rating=new_rating)
 
                 messages.success(request, 'Successfully added review!')
                 return redirect(reverse('workout_detail', args=[workout.id]))
             else:
                 messages.error(
-                    request, 'Failed to add review. Please ensure the form is valid.')
+                    request, ('Failed to add review. '
+                              'Please ensure the form is valid.'))
         else:
             form = ReviewForm(
                 initial={"user": profile, "workout": workout})
@@ -270,7 +278,8 @@ def add_category(request):
             return redirect(reverse('home'))
         else:
             messages.error(
-                request, 'Failed to add a category. Please ensure the form is valid.')
+                request, ('Failed to add a category. '
+                          'Please ensure the form is valid.'))
     else:
         form = CategoryForm()
 
@@ -296,7 +305,8 @@ def add_workouttype(request):
             return redirect(reverse('home'))
         else:
             messages.error(
-                request, 'Failed to add a workout type. Please ensure the form is valid.')
+                request, ('Failed to add a workout type. '
+                          'Please ensure the form is valid.'))
     else:
         form = WorkoutTypeForm()
 
